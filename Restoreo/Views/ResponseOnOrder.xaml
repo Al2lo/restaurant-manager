@@ -1,0 +1,38 @@
+﻿<Window x:Class="Restoreo.Views.ResponseOnOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restoreo.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanMinimize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="ApplicationWindow" Height="250" Width="200">
+
+    <Window.Resources>
+        <ResourceDictionary Source="..\Resources\ResponseStyles.xaml"/>
+    </Window.Resources>
+
+
+    <Border CornerRadius="25" Background="#ccffcc">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel>
+                    <Image Source="{Binding Img}" Width="100" Height="100" Margin="40,20,40,25"/>
+                    <TextBlock Text="{Binding Text}"  FontSize="18" Margin="0,0,0,5" Foreground="Green" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Button Command="{Binding Close}" Style="{StaticResource ResponseButton}"  Content="OK"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

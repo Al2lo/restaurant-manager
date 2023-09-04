@@ -1,0 +1,25 @@
+﻿<Page x:Class="Restoreo.Pages.ContinuePageAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Restoreo.Pages"
+      xmlns:viewModels="clr-namespace:Restoreo.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="600"
+      Title="ContinuePageAdmin">
+
+
+    <Page.Resources>
+        <ResourceDictionary Source="..\Resources\StylesForRegister.xaml"/>
+    </Page.Resources>
+
+    <Border CornerRadius="15" Background="#383235" BorderBrush="Black" BorderThickness="0" Margin="10">
+        <UniformGrid>
+            <Button Style="{StaticResource ChoiseButtonContinueAdminOne}" Command="{Binding SetOneHour}"  Margin="100,0,0,0" Content="Продлить на час" Height="40" Width="180" />
+            <Button Style="{StaticResource ChoiseButtonContinueAdminTwo}" Command="{Binding SetTwoHour}" Margin="0,0,100,0" Content="Продлить на два часа" Height="40" Width="180" />
+            <Button Style="{StaticResource TransitionButtonToInfo}" Command="{Binding ContinueOrder}" Margin="0,0,0,100" Content="Продлить" Height="60" Width="200" />
+            <Button Style="{StaticResource TransitionButtonToInfo}" Command="{Binding DeleteOrder}" Margin="0,0,0,100" Content="Удалить бронь" Height="60" Width="200" />
+        </UniformGrid>
+    </Border>
+</Page>

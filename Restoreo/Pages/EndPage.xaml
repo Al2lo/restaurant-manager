@@ -1,0 +1,56 @@
+﻿<Page x:Class="Restoreo.Pages.EndPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Restoreo.Pages"
+      xmlns:ViewModels="clr-namespace:Restoreo.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EndPage">
+
+    <Page.DataContext>
+        <ViewModels:EndPageViewModel/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\AccauntStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Border CornerRadius="20" Background="#383235">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Border  Grid.Row="0" BorderBrush="Black" Background="#D2B48C" BorderThickness="2" CornerRadius="20" Margin="20">
+                <Grid>
+                    <UniformGrid Columns="2">
+                        <UniformGrid Rows="6" Margin="20,10" >
+                            <TextBlock Text="Информация о столе" Foreground="#383235" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            <TextBlock Text="{Binding Day,StringFormat=Дата:  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                            <TextBlock Text="{Binding Time,StringFormat=Время:  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                            <TextBlock Text="{Binding IdTable,StringFormat=Номер стола:  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                            <TextBlock Text="{Binding PlacesTable,StringFormat=Количесвто мест:  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                            <TextBlock Text="{Binding Vip,StringFormat=Тип:  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                        </UniformGrid>
+                        <Border BorderBrush="Black" BorderThickness="2,0,0,0">
+                            <UniformGrid >
+                                <StackPanel Margin="20,10" >
+                                    <TextBlock Text="Информация о пред заказе" Foreground="#383235" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                    <TextBlock Text="{Binding Dishes,StringFormat=Список блюд:  \{0\}}" Height="310" Margin="0,20,0,0" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                                    <TextBlock Text="{Binding Coast,StringFormat=Стоимость  \{0\}}" Foreground="#383235" VerticalAlignment="Center" FontSize="18" />
+                                </StackPanel>
+                            </UniformGrid>
+                        </Border>
+                    </UniformGrid>
+                </Grid>
+            </Border>
+            <Button Grid.Row="1" Command="{Binding SaveCommand}" Style="{StaticResource AccantButtons}" Content="Бронировать" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"  Width="220" Height="60"/>
+        </Grid>
+    </Border>
+</Page>

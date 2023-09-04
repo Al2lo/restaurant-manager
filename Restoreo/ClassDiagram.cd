@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Restoreo.App" Collapsed="true">
+    <Position X="28.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Command" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAEAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Table" Collapsed="true">
+    <Position X="26.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAABAAAgAAAAAAAAAAAAAEgQkAAQAAAAAgAAgA=</HashCode>
+      <FileName>Models\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.RegistrationWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Views\RegistrationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Models.AdminOrderInfo" Collapsed="true">
+    <Position X="32" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAEQAAAQAAAAAAAABAAAQAAAAAQA=</HashCode>
+      <FileName>Models\AdminOrderInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Models.Dish" Collapsed="true">
+    <Position X="30.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAABAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Dish.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Models.History" Collapsed="true">
+    <Position X="25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAACAAAAAAABAAAAAAAAAQA=</HashCode>
+      <FileName>Models\History.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Models.User" Collapsed="true">
+    <Position X="28.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAVABAAAAAgAAAAAAEAAAAAAAAAgAAEAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Models.Zakaz" Collapsed="true">
+    <Position X="30.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAIAAAgAAAAAAAAAQAAAAEQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Zakaz.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Pages.AccauntPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AccauntPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.AdminChoiceTable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AdminChoiceTable.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.AdminMenuWork" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AdminMenuWork.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.ChoiceMenuPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChoiceMenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.ChoiceTablePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChoiceTablePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.ContinuePageAdmin" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ContinuePageAdmin.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.EndPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\EndPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Pages.InfoPageAdmin" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\InfoPageAdmin.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Properties.Resources" Collapsed="true">
+    <Position X="30.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.Properties.Settings" Collapsed="true">
+    <Position X="25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AccauntViewModel" Collapsed="true">
+    <Position X="22.75" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>gEAAAMBUAABAUACAAGAAgAQAAAEGAACAgAAAwABAAAA=</HashCode>
+      <FileName>ViewModels\AccauntViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AdminApplicationViewModels" Collapsed="true">
+    <Position X="21.25" Y="3.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAgAAAAIAEAAAAAAAAAAAAAAEBCAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\AdminApplicationViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AdminCheckInfoViewModel" Collapsed="true">
+    <Position X="14" Y="3.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAEABAAAABABAAMQgAAQAAAACAAABAEAAAAAAAQA=</HashCode>
+      <FileName>ViewModels\AdminCheckInfoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AdminTablesViewModel" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAABIQAAAAAEABBAEAAABAggAAAAAAABAAAAAQAAAQg=</HashCode>
+      <FileName>ViewModels\AdminTablesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AdminWorkMenuViewModel" Collapsed="true">
+    <Position X="15.5" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>CAAABEgAAAQARCEIAAQACAwAAAAMBAAAIAAAAAAAAAY=</HashCode>
+      <FileName>ViewModels\AdminWorkMenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AdminWOrkRableViewModel" Collapsed="true">
+    <Position X="17.25" Y="4.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAABAwgAAipAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AdminWOrkRableViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.AllOrdersInfoViewModel" Collapsed="true">
+    <Position X="21.25" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AllOrdersInfoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.ApplicationWindowViewModel" Collapsed="true">
+    <Position X="19.75" Y="3.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACgAACAgAAAAIAGiAAAAAAAAEAgAAEBCAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\ApplicationWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.ControlInfoPagesAdmin" Collapsed="true">
+    <Position X="22.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAACAAAEAgAACAAAFAAAMAAFEAAACAAAA=</HashCode>
+      <FileName>ViewModels\ControlInfoPagesAdmin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.EndPageViewModel" Collapsed="true">
+    <Position X="15.5" Y="3.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACIAAAAAAAAIQgAAACAAAAFAAAAAAAAAAEAQA=</HashCode>
+      <FileName>ViewModels\EndPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.MenusViewModel" Collapsed="true">
+    <Position X="14" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>CAAABAgAAQAABAECABQAAAQAAAAEAAAAIAAAAAAAAAY=</HashCode>
+      <FileName>ViewModels\MenusViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.RegistrationViewModel" Collapsed="true">
+    <Position X="17" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>gDAAAAhgIAAIQgAAAAAgAAAIAIAACACCAAqQAoAQEYA=</HashCode>
+      <FileName>ViewModels\RegistrationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.ResponseViewModel" Collapsed="true">
+    <Position X="19.75" Y="4.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAEAAAACAAAAKAAAAAAAAIAAAACACAAAA=</HashCode>
+      <FileName>ViewModels\ResponseViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.TablesMapViewModelcs" Collapsed="true">
+    <Position X="19.75" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAEABBAEAAABAAgAAAAAAABAAAAAQAAAQA=</HashCode>
+      <FileName>ViewModels\TablesMapViewModelcs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Restoreo.Views.AdminApplicationWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Views\AdminApplicationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Views.AdminWorkTableWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Views\AdminWorkTableWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Views.AllOrdersWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Views\AllOrdersWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Views.ApplicationWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Views\ApplicationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.Views.ResponseOnOrder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ResponseOnOrder.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.AccauntWorkBD" Collapsed="true">
+    <Position X="24.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\AccauntWorkBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.AdminGetInfoBD" Collapsed="true">
+    <Position X="26.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAACAAAAAEAAABAAAAA=</HashCode>
+      <FileName>WorkWithBD\AdminGetInfoBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.BaseWorkWithBD" Collapsed="true">
+    <Position X="22.25" Y="5.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAkAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\BaseWorkWithBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.DishesWorkBD" Collapsed="true">
+    <Position X="22.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAIAAAAIAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\DishesWorkBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.FormingWorkBD" Collapsed="true">
+    <Position X="17" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\FormingWorkBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.TableBD" Collapsed="true">
+    <Position X="19" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\TableBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restoreo.WorkWithBD.UsersBD" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA=</HashCode>
+      <FileName>WorkWithBD\UsersBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

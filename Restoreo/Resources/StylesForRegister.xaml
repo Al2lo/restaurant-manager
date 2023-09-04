@@ -1,0 +1,348 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Restoreo"
+                    >
+    <Style TargetType="Image" x:Key="TopButtons">
+        <Setter Property="Width" Value="25"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="SettingButtons">
+        <Setter Property="Background" Value="#964b00"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="30,0,25,0"/>
+        <Setter Property="Opacity" Value="0.9"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="#D2B48C"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style TargetType="Button" x:Key="ButtonEnter">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Opacity" Value="0.95"/>
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Background" Value="#964b00"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="25"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="#D2B48C"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="InputTextStyle">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Width" Value="335"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="CaretBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0,14,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style TargetType="Grid" x:Key="InputTextGridStyle">
+        <Setter Property="Margin" Value="0,10,0,25"/>
+    </Style>
+    <Style TargetType="Line" x:Key="LinesLogin">
+        <Setter Property="Y1" Value="45"/>
+        <Setter Property="X1" Value="35"/>
+        <Setter Property="Y2" Value="45"/>
+        <Setter Property="X2" Value="370"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName = TextBoxLogin, Path = IsMouseOver}" Value="true" >
+                <Setter Property="Stroke" Value="Brown"/>
+            </DataTrigger>
+            <DataTrigger  Binding="{Binding ElementName = TextBoxLogin, Path = IsFocused}" Value="true">
+                <Setter Property="StrokeThickness" Value="3"/>
+                <Setter Property="X1" Value="192"/>
+                <Setter Property="X2" Value="212"/>
+                <Setter Property="Stroke" Value="Orange"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="X1" Duration="0:0:0.3" To="35" AutoReverse="False"/>
+                            <DoubleAnimation Storyboard.TargetProperty="X2" Duration="0:0:0.3" To="370" AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Line" x:Key="LinesPassword">
+        <Setter Property="Y1" Value="45"/>
+        <Setter Property="X1" Value="35"/>
+        <Setter Property="Y2" Value="45"/>
+        <Setter Property="X2" Value="370"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName = TextBoxPassword, Path = IsMouseOver}" Value="true" >
+                <Setter Property="Stroke" Value="Brown"/>
+            </DataTrigger>
+            <DataTrigger  Binding="{Binding ElementName = TextBoxPassword, Path = IsFocused}" Value="true">
+                <Setter Property="StrokeThickness" Value="3"/>
+                <Setter Property="X1" Value="192"/>
+                <Setter Property="X2" Value="212"/>
+                <Setter Property="Stroke" Value="Orange"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="X1" Duration="0:0:0.3" To="35" AutoReverse="False"/>
+                            <DoubleAnimation Storyboard.TargetProperty="X2" Duration="0:0:0.3" To="370" AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="ErrorsText">
+        <Setter Property="Width" Value="335"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="Margin" Value="5,45,0,0"/>
+        <Setter Property="Foreground" Value="Red"/>
+    </Style>
+
+
+
+    <Style TargetType="Button" x:Key="TransitionButtonToInfo">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#D2B48C"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="15"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.8"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    
+    
+    
+
+    <Style TargetType="Button" x:Key="ChoiseButtonContinueAdminOne">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#855d41"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Opacity" Value="0.7"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.8"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    
+    <Style TargetType="Button" x:Key="ChoiseButtonContinueAdminTwo">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#855d41"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Opacity" Value="0.8"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.8"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+
+    <Style TargetType="Button" x:Key="MenuPunct">
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="AccantButtons">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#D2B48C"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontSize" Value="15"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter ContentSource="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.8"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#544b50"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

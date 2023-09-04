@@ -1,0 +1,848 @@
+﻿<Page x:Class="Restoreo.Pages.ChoiceTablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Restoreo.Pages"
+      xmlns:viewsmodel="clr-namespace:Restoreo.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="700"
+      Title="ChoiceTablePage"       
+      Background="Transparent" 
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+
+    <Page.Resources>
+        <!--<BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>-->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\TablesResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="DatePickerStyle1" TargetType="{x:Type DatePicker}">
+                <Setter Property="Foreground" Value="#403a3a"/>
+                <Setter Property="IsTodayHighlighted" Value="True"/>
+                <Setter Property="SelectedDateFormat" Value="Short"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DatePicker}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0" Storyboard.TargetName="PART_DisabledVisual" To="1" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <Grid.Resources>
+                                        <SolidColorBrush x:Key="DisabledBrush" Color="Transparent"/>
+                                        <ControlTemplate x:Key="DropDownButtonTemplate" TargetType="{x:Type Button}">
+                                            <Grid>
+                                                
+                                                <Grid Background="Transparent" FlowDirection="LeftToRight" HorizontalAlignment="Center" Height="18" Margin="0" VerticalAlignment="Center" Width="19">
+                                                    <Image x:Name="DisabledVisual" Source="/Sources/pngwing.com.png" Cursor="Hand">
+                                                    </Image>
+                                                </Grid>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="PART_Button" Grid.Column="1" Foreground="{TemplateBinding Foreground}" Focusable="False" HorizontalAlignment="Left" Margin="3,0,3,0" Grid.Row="0" Template="{StaticResource DropDownButtonTemplate}" VerticalAlignment="Top" Width="20">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.7"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    
+                                    <DatePickerTextBox   Width="100" Cursor="Arrow" IsReadOnly="True" x:Name="PART_TextBox" Background="White" Grid.Column="0" Focusable="{TemplateBinding Focusable}" HorizontalContentAlignment="Stretch" Grid.Row="0" VerticalContentAlignment="Stretch"/>
+                                    <Grid x:Name="PART_DisabledVisual" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Opacity="0" Grid.Row="0" Background="Black">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="false">
+                                    <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="DatePickerCalendarStyle1" TargetType="{x:Type Calendar}">
+                <Setter Property="Foreground" Value="#FF333333"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#FF333333"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Calendar}">
+                            <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+                                <CalendarItem x:Name="PART_CalendarItem" Width="200" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Style="{TemplateBinding CalendarItemStyle}"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="FocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+
+            <SolidColorBrush x:Key="TextBox.Static.Background" Color="Transparent"/>
+
+
+            <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="AllowDrop" Value="true"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#292823" Offset="0.0"/>
+                <GradientStop Color="#545454" Offset="1.0"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="ComboBox.Static.Border" Color="Black"/>
+            <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="Gray"/>
+            <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="Black"/>
+            <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="Black"/>
+            <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
+            <LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#292823" Offset="0.0"/>
+                <GradientStop Color="#6e6e6e" Offset="1.0"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
+            <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="Transparent"/>
+            <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#292823" Offset="0.0"/>
+                <GradientStop Color="#545454" Offset="1.0"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
+            <LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#1a162a" Offset="0.0"/>
+                <GradientStop Color="#8b7ebd" Offset="1.0"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000"/>
+            <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="Black"/>
+            <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+                <GradientStop Color="#1a162a" Offset="0.0"/>
+                <GradientStop Color="#8b7ebd" Offset="1.0"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="Black"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent"/>
+            <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="ClickMode" Value="Press"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderBrush="{StaticResource ComboBox.Static.Border}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="5">
+                                <Border x:Name="splitBorder" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,10,0" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+                                    <Path
+                                VerticalAlignment="Center" x:Name="arrow" HorizontalAlignment="Center" Fill="{StaticResource ComboBox.Static.Glyph}" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Height="13" Stretch="Fill" Width="18"/>
+                                </Border>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                        <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                        <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Border}"/>
+                                    <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Border}"/>
+                                </MultiDataTrigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.MouseOver.Glyph}"/>
+                                </Trigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Border}"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Border}"/>
+                                    <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Border}"/>
+                                </MultiDataTrigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Pressed.Glyph}"/>
+                                </Trigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Border}"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Border}"/>
+                                    <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Border}"/>
+                                </MultiDataTrigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Disabled.Glyph}"/>
+                                </Trigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Border}"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                        <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Border}"/>
+                                    <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Border}"/>
+                                </MultiDataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
+                <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+                    </Grid.ColumnDefinitions>
+                    <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                        <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                            <Border x:Name="dropDownBorder" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="0">
+                                <ScrollViewer x:Name="DropDownScrollViewer">
+                                    <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                            <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                                        </Canvas>
+                                        <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Grid>
+                                </ScrollViewer>
+                            </Border>
+                        </theme:SystemDropShadowChrome>
+                    </Popup>
+                    <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+                    <Border x:Name="border" Background="{StaticResource TextBox.Static.Background}" Margin="{TemplateBinding BorderThickness}">
+                        <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" Margin="{TemplateBinding Padding}" Style="{StaticResource ComboBoxEditableTextBox}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                    </Trigger>
+                    <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                    <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
+                        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+                        <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
+                    </Trigger>
+                    <Trigger Property="HasItems" Value="false">
+                        <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsGrouping" Value="true"/>
+                            <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                    </MultiTrigger>
+                    <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                        <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                        <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+                <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+                    </Grid.ColumnDefinitions>
+                    <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                        <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                            <Border x:Name="dropDownBorder" Background="Transparent" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" Height="130" BorderThickness="0" Margin="0,0,70,0" >
+                                <ScrollViewer x:Name="DropDownScrollViewer">
+                                    <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                            <Rectangle x:Name="opaqueRect" Fill="#403a3a" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                                        </Canvas>
+                                        <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Grid>
+                                </ScrollViewer>
+                            </Border>
+                        </theme:SystemDropShadowChrome>
+                    </Popup>
+                    <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+                    <ContentPresenter x:Name="contentPresenter" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
+                        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+                        <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
+                    </Trigger>
+                    <Trigger Property="HasItems" Value="false">
+                        <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsGrouping" Value="true"/>
+                            <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                    </MultiTrigger>
+                    <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                        <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                        <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
+                <Setter Property="Foreground" Value="#828282"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="Padding" Value="6,3,5,3"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEditable" Value="true">
+                        <Setter Property="IsTabStop" Value="false"/>
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="FocusVisual1">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewHover.Background" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewHover.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelected.Background" Color="#615e52"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelected.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelectedHover.Background" Color="#665c55"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelectedHover.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelectedNoFocus.Background" Color="#615e52"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewSelectedNoFocus.Border" Color="Transparent"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewFocus.Border" Color="#FF26A0DA"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewHoverFocus.Background" Color="#665c55"/>
+            <SolidColorBrush x:Key="ComboBoxItem.ItemsviewHoverFocus.Border" Color="Transparent"/>
+            <Style x:Key="ComboBoxItemContainerStyle1" TargetType="{x:Type ComboBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Padding" Value="4,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsKeyboardFocused" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHover.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHover.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="IsMouseOver" Value="False"/>
+                                        <Condition Property="IsKeyboardFocused" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelected.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelected.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedHover.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedHover.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="IsMouseOver" Value="False"/>
+                                        <Condition Property="IsKeyboardFocused" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedNoFocus.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedNoFocus.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                        <Condition Property="IsMouseOver" Value="False"/>
+                                        <Condition Property="IsKeyboardFocused" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewFocus.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsKeyboardFocused" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHoverFocus.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHoverFocus.Border}"/>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+
+
+
+    </Page.Resources>
+
+    <Border CornerRadius="30" Background="#c19a6b">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <UniformGrid Columns="2">
+                    <Grid>
+                        <Viewbox Height="auto" Width="auto">
+                            <DatePicker  CalendarStyle="{DynamicResource DatePickerCalendarStyle1}" Style="{DynamicResource DatePickerStyle1}" SelectedDate="{Binding Date}"/>
+                        </Viewbox>
+                    </Grid>
+                    <Border BorderThickness="2,0,0,0" BorderBrush="Black">
+                        <Grid>
+                            <ComboBox ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" SelectedItem="{Binding Time}" Style="{DynamicResource ComboBoxStyle1}"  HorizontalContentAlignment= "Center" Width="200" Height="30" Cursor="Hand">
+                                <ComboBoxItem  Content="9:00"/>
+                                <ComboBoxItem  Content="9:30"/>
+                                <ComboBoxItem Content="10:00"/>
+                                <ComboBoxItem Content="10:30"/>
+                                <ComboBoxItem Content="11:00"/>
+                                <ComboBoxItem Content="11:30"/>
+                                <ComboBoxItem Content="12:00"/>
+                                <ComboBoxItem Content="12:30"/>
+                                <ComboBoxItem Content="13:00"/>
+                                <ComboBoxItem Content="13:30"/>
+                                <ComboBoxItem Content="14:00"/>
+                                <ComboBoxItem Content="14:30"/>
+                                <ComboBoxItem Content="15:00"/>
+                                <ComboBoxItem Content="15:30"/>
+                                <ComboBoxItem Content="16:00"/>
+                                <ComboBoxItem Content="16:30"/>
+                                <ComboBoxItem Content="17:00"/>
+                                <ComboBoxItem Content="17:30"/>
+                                <ComboBoxItem Content="18:00"/>
+                                <ComboBoxItem Content="18:30"/>
+                                <ComboBoxItem Content="19:00"/>
+                                <ComboBoxItem Content="19:30"/>
+                                <ComboBoxItem Content="20:00"/>
+                                <ComboBoxItem Content="20:30"/>
+                                <ComboBoxItem Content="21:00"/>
+                                <ComboBoxItem Content="21:30"/>
+                                <ComboBoxItem Content="22:00"/>
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+                </UniformGrid>
+            </Grid>
+
+            <Grid Grid.Row="1"   Background="#383235">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" >
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Left">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="TableMap" Width="650" Margin="20,50,0,0">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources>
+                            <RectangleGeometry  x:Key="clip0_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-1 0 0 -1 947.37 401.536"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip1_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-1 0 0 -1 913.221 401.536"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip2_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-1 0 0 -1 876.938 401.536"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip3_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-1 0 0 -1 841.722 401.536"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip4_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-0.861223 -0.508228 0.491817 -0.870698 802.276 403.429"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip5_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="0 -1 1 0 770.093 344.556"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip6_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="-0.169999 -0.985444 0.984144 -0.17737 773.125 376.928"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip7_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="0 -1 1 0 623.638 515.834"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                            <RectangleGeometry  x:Key="clip8_0_1">
+                                <RectangleGeometry.Transform>
+                                    <MatrixTransform Matrix="0 -1 1 0 769.026 309.651"/>
+                                </RectangleGeometry.Transform>
+                            </RectangleGeometry>
+                        </Canvas.Resources>
+                        <!--Unknown tag: sodipodi:namedview-->
+                        <Canvas Width="650" Height="460">
+                            <ListBox Width="650"  Height="460" x:Name="TablesMap" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" ItemsSource="{Binding Tabless,UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding IsSelect, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate >
+                                    <DataTemplate>
+                                        <Canvas>
+                                            <Button Width="{Binding Path=sizes}" Height="{Binding Path=sizes}" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource Table}" BorderThickness="0" Canvas.Top="{Binding Path=canvasTop}" Canvas.Left="{Binding Path=canvasLeft}">
+                                                <Image  Style="{DynamicResource img}"/>
+                                            </Button>
+                                        </Canvas>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+                        </Canvas>
+
+
+                        <Line  X1="4.8889604" Y1="411.05301" X2="4.8889604" Y2="154.50389" Name="line496" StrokeThickness="10.1175" Stroke="#FF8C8C8C"/>
+                        <Path  Name="path498" Fill="#FF8C8C8C" StrokeThickness="0.778275" Data="m 118.37577 158.99644 c 2.67008 -0.006 4.83143 -2.38129 4.82771 -5.30495 -0.004 -2.92366 -2.17102 -5.28867 -4.8411 -5.28216 z M 0.03830203 159.26927 118.37577 158.99644 118.36311 148.40933 0.02563707 148.68217 Z"/>
+                        <Line  X1="173.51335" Y1="124.11476" X2="173.51335" Y2="7.6880202" Name="line500" StrokeThickness="10.054" Stroke="#FF8C8C8C"/>
+                        <Line  X1="168.59331" Y1="5.3077846" X2="436.06638" Y2="5.3077846" Name="line502" StrokeThickness="10.1175" Stroke="#FF8C8C8C"/>
+                        <Line  X1="431.20303" Y1="0.045751672" X2="431.20303" Y2="134.3252" Name="line504" StrokeThickness="10.1175" Stroke="#FF8C8C8C"/>
+                        <Line  X1="353.42123" Y1="129.03168" X2="521.09222" Y2="129.03168" Name="line506" StrokeThickness="10.09" Stroke="#FF8C8C8C"/>
+                        <Line  X1="516.30798" Y1="126.15769" X2="516.30798" Y2="274.06274" Name="line508" StrokeThickness="9.95292" Stroke="#FF8C8C8C"/>
+                        <Line  X1="521.09222" Y1="194.17194" X2="649.23279" Y2="194.17194" Name="line510" StrokeThickness="10.1206" Stroke="#FF8C8C8C"/>
+                        <Line  X1="644.36938" Y1="188.90991" X2="644.36938" Y2="400.54431" Name="line512" StrokeThickness="10.1661" Stroke="#FF8C8C8C"/>
+                        <Line  X1="0.025593776" Y1="405.79099" X2="289.383" Y2="405.79099" Name="line514" StrokeThickness="10.1175" Stroke="#FF8C8C8C"/>
+                        <Line  X1="649.2561" Y1="405.79868" X2="361.5499" Y2="405.79868" Name="line516" StrokeThickness="10.1028" Stroke="#FF8C8C8C"/>
+                        <Line  X1="288.65714" Y1="411.05301" X2="288.65714" Y2="383.76108" Name="line518" StrokeThickness="4.66964" Stroke="#FF515151"/>
+                        <Line  X1="168.80222" Y1="121.63258" X2="145.9267" Y2="121.63258" Name="line520" StrokeThickness="4.77259" Stroke="#FF515151"/>
+                        <Path  Name="path522" Fill="#FF515151" StrokeThickness="0.805099" Data="m 132.85445 154.92269 c 0.83275 0.84329 2.0153 0.70013 2.64165 -0.32004 0.62635 -1.02018 0.45852 -2.53073 -0.37422 -3.37484 -0.83277 -0.84329 -2.01531 -0.70014 -2.64164 0.32003 -0.62635 1.02018 -0.45853 2.53073 0.37421 3.37485 z m 1.13369 -54.67436 -0.0117 -0.449198 -0.34113 -0.0045 v 0.432758 z m 15.61197 0.19746 0.0117 0.45003 v 0 z m -15.2582 52.65043 v -52.8265 l -0.70748 -0.042 v 52.82651 z m -0.34116 -52.39785 15.61196 0.19745 -0.026 -0.89924 -15.61115 -0.197448 z m 15.61196 0.19745 19.18952 0.2427 -0.026 -0.89924 -19.18953 -0.2427 z"/>
+                        <Path  Name="path524" StrokeThickness="0.778275" Stroke="#FF515151" Data="m 122.75782 144.74239 23.16887 -0.0467"/>
+                        <Path  Name="path526" StrokeThickness="0.778275" Stroke="#FF515151" Data="m 122.03108 131.04975 h 22.2896"/>
+                        <Path  Name="path528" StrokeThickness="0.778275" Stroke="#FF515151" Data="m 122.75642 135.41651 h 22.28961"/>
+                        <Path  Name="path530" StrokeThickness="0.785181" Stroke="#FF515151" Data="m 122.75782 149.06606 h 23.09884"/>
+                        <Path  Name="path532" StrokeThickness="0.778275" Stroke="#FF515151" Data="m 122.75712 140.28224 23.16957 0.0467"/>
+                        <Path  Name="path534" StrokeThickness="0.794674" Stroke="#FF515151" Data="m 122.68779 153.42926 h 23.2389"/>
+                        <Path  Name="path536" StrokeThickness="0.797966" Stroke="#FF515151" Data="M 148.79465 85.450755 V 119.87987"/>
+                        <Path  Name="path538" StrokeThickness="0.778275" Stroke="#FF515151" Data="M 122.25628 122.3162 H 144.9505"/>
+                        <Path  Name="path540" StrokeThickness="0.778275" Stroke="#FF515151" Data="m 122.9948 126.68297 h 22.69423"/>
+                        <Path  Name="path542" StrokeThickness="0.801465" Stroke="#FF515151" Data="M 163.74877 85.299532 V 120.0311"/>
+                        <Path  Name="path544" StrokeThickness="0.797966" Stroke="#FF515151" Data="M 159.70551 85.450755 V 119.87987"/>
+                        <Path  Name="path546" StrokeThickness="0.797966" Stroke="#FF515151" Data="M 155.65279 85.450755 V 119.87987"/>
+                        <Path  Name="path548" StrokeThickness="0.789292" Stroke="#FF515151" Data="M 151.60008 85.823046 V 119.50758"/>
+                        <Path  Name="path550" Fill="#FF515151" StrokeThickness="0.651767" Data="m 178.42439 10.569818 h 123.90547 v 50.521458 c 0 6.396839 -6.56809 11.582179 -14.67076 11.582179 H 178.42439 Z"/>
+                        <Path  Name="path552" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 436.46365 167.54267 v -10.66121 h 5.87567 v 1.14584 h -4.69681 v 3.33088 h 2.47225 c 0.6969 0 1.2852 0.12546 1.76344 0.37545 0.48195 0.25 0.84639 0.60183 1.0933 1.05625 0.25067 0.45525 0.3756 0.99112 0.3756 1.60843 0 0.61812 -0.1249 1.16295 -0.3756 1.63531 -0.24691 0.47152 -0.61135 0.84124 -1.0933 1.10838 -0.47824 0.26712 -1.06654 0.40067 -1.76344 0.40067 z m 1.17886 -1.12386 h 2.47225 c 0.44328 0 0.81885 -0.0978 1.12678 -0.29155 0.31014 -0.19789 0.54518 -0.45118 0.7036 -0.76064 0.16139 -0.31192 0.24245 -0.64174 0.24245 -0.98869 0 -0.51061 -0.17924 -0.94956 -0.53772 -1.31686 -0.35776 -0.37135 -0.86947 -0.55703 -1.53511 -0.55703 h -2.47225 z m 12.06148 1.12386 h -1.23613 l 3.57524 -10.66121 h 1.21677 l 3.57525 10.66121 H 455.599 l -2.90959 -8.97461 h -0.0759 z m 0.45667 -4.16399 h 4.98167 v 1.14505 h -4.98167 z m 12.20726 4.16399 v -10.66121 h 3.28963 c 0.76382 0 1.38858 0.1514 1.87352 0.45281 0.48791 0.29888 0.84936 0.70281 1.08364 1.21344 0.23429 0.50981 0.35181 1.07907 0.35181 1.70698 0 0.6287 -0.11764 1.19959 -0.35181 1.71266 -0.2313 0.51388 -0.58906 0.92351 -1.07397 1.22892 -0.48492 0.30214 -1.10671 0.4528 -1.86385 0.4528 h -2.35845 v -1.14503 h 2.32051 c 0.52286 0 0.94235 -0.0993 1.25992 -0.29727 0.31685 -0.19789 0.54667 -0.46501 0.68871 -0.80137 0.14578 -0.34039 0.21868 -0.72317 0.21868 -1.15071 0 -0.42676 -0.0728 -0.8087 -0.21868 -1.14505 -0.14204 -0.33635 -0.37335 -0.60022 -0.6939 -0.79076 -0.31981 -0.19464 -0.74451 -0.29158 -1.27406 -0.29158 h -2.07286 v 9.51537 z"/>
+                        <Path  Name="path554" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 208.34521 31.772374 h -1.17885 c -0.0698 -0.371373 -0.19189 -0.697934 -0.36594 -0.978908 -0.1718 -0.280958 -0.38079 -0.517138 -0.62773 -0.707697 -0.24395 -0.194654 -0.51542 -0.34042 -0.81291 -0.437341 -0.29826 -0.09687 -0.6084 -0.145751 -0.93193 -0.145751 -0.58979 0 -1.12381 0.162892 -1.60205 0.489454 -0.47526 0.325753 -0.85458 0.807064 -1.13647 1.441474 -0.2789 0.635234 -0.41799 1.4146 -0.41799 2.337301 0 0.923526 0.1391 1.702906 0.41799 2.337317 0.28189 0.635219 0.66121 1.115721 1.13647 1.442284 0.47824 0.326576 1.01226 0.489454 1.60205 0.489454 0.32353 0 0.63367 -0.04889 0.93193 -0.14575 0.29749 -0.09687 0.56896 -0.241053 0.81291 -0.432439 0.24694 -0.193829 0.45593 -0.431627 0.62773 -0.7126 0.17405 -0.285038 0.29602 -0.61079 0.36594 -0.978894 h 1.17885 c -0.0885 0.544822 -0.25066 1.032641 -0.48494 1.46265 -0.23428 0.429991 -0.52583 0.796475 -0.87466 1.098609 -0.34881 0.298069 -0.74002 0.52528 -1.17437 0.681648 -0.43138 0.156368 -0.89251 0.234544 -1.38339 0.234544 -0.83079 0 -1.56859 -0.222322 -2.21567 -0.666171 -0.6463 -0.444661 -1.15504 -1.075815 -1.52616 -1.895086 -0.37041 -0.819287 -0.5556 -1.790863 -0.5556 -2.915535 0 -1.123864 0.18519 -2.095424 0.5556 -2.914711 0.37112 -0.819269 0.87986 -1.450425 1.52616 -1.895086 0.64708 -0.443849 1.38488 -0.666171 2.21567 -0.666171 0.49088 0 0.95201 0.07822 1.38339 0.234544 0.43435 0.155544 0.82556 0.385199 1.17437 0.686537 0.34883 0.298881 0.64038 0.662903 0.87466 1.093722 0.23428 0.426739 0.39644 0.914558 0.48494 1.462648 z m 14.19383 6.100616 -0.13316 3.748646 h -1.21751 V 39.101903 H 220.5041 V 37.87299 Z M 214.267 39.101903 V 28.440688 h 1.12158 v 9.473827 h 5.02034 v -9.473827 h 1.12233 v 10.661215 z m 14.06959 0 V 28.440688 h 5.87645 v 1.145039 h -4.69758 v 3.602056 h 4.39336 v 1.145849 h -4.39336 v 3.623232 h 4.77342 v 1.145039 z m 12.01763 0 V 28.440688 h 1.17885 v 4.747095 h 5.19142 v -4.747095 h 1.17959 v 10.661215 h -1.17959 v -4.768271 h -5.19142 v 4.768271 z m 14.32548 0 h -1.23613 l 3.57523 -10.661215 h 1.21677 l 3.57524 10.661215 h -1.23613 l -2.90956 -8.97461 h -0.0759 z m 0.45664 -4.164799 h 4.98243 v 1.145023 h -4.98243 z"/>
+                        <Path  Name="path556" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 523.41388 288.8106 2.56893 7.97697 h 0.10195 l 2.56893 -7.97697 h 1.09926 l -3.17806 9.47627 h -1.08217 l -3.17732 -9.47627 z m 12.3047 0 v 9.47627 h -1.04796 v -9.47627 z m 5.67039 9.47627 v -9.47627 h 2.92296 c 0.68425 0 1.23463 0.13438 1.66601 0.40232 0.43881 0.26549 0.75862 0.62464 0.96689 1.07824 0.20824 0.45362 0.31236 0.95936 0.31236 1.51803 0 0.55786 -0.10411 1.06523 -0.31236 1.5221 -0.20827 0.45688 -0.52808 0.8209 -0.95945 1.0921 -0.43137 0.26876 -0.98175 0.40231 -1.65114 0.40231 h -2.0974 v -1.01798 h 2.06021 c 0.46856 0 0.84043 -0.0881 1.12307 -0.26387 0.28263 -0.17509 0.48344 -0.41289 0.60988 -0.71259 0.12647 -0.30214 0.19338 -0.64256 0.19338 -1.02207 0 -0.3795 -0.0669 -0.7191 -0.19338 -1.01797 -0.12647 -0.29973 -0.33469 -0.53426 -0.61731 -0.70365 -0.28264 -0.17266 -0.66196 -0.25898 -1.13052 -0.25898 h -1.84452 v 8.45828 z" Canvas.Left="9.947" Canvas.Top="-81.241"/>
+                        <Path  Name="path558" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 215.44553 362.325 v 0.89014 h -3.65332 v 7.40118 h -0.91705 V 362.325 Z m 5.32307 8.4371 c -0.35999 0 -0.68723 -0.0742 -0.98027 -0.22233 -0.29305 -0.15156 -0.52658 -0.3681 -0.69914 -0.6515 -0.17255 -0.28668 -0.25883 -0.63198 -0.25883 -1.03675 0 -0.3567 0.0647 -0.64498 0.19263 -0.86649 0.12791 -0.22397 0.29975 -0.39988 0.51394 -0.52609 0.2142 -0.1271 0.45146 -0.22153 0.71028 -0.28343 0.26107 -0.0651 0.52361 -0.11637 0.78765 -0.15392 0.3451 -0.0489 0.62476 -0.0855 0.83894 -0.11008 0.2172 -0.0269 0.37484 -0.0709 0.47303 -0.13357 0.1013 -0.0619 0.15173 -0.16937 0.15173 -0.3233 v -0.0326 c 0 -0.39987 -0.0997 -0.71014 -0.29898 -0.93167 -0.19783 -0.22069 -0.49683 -0.33145 -0.8992 -0.33145 -0.41651 0 -0.74303 0.0993 -0.97952 0.2997 -0.23652 0.19951 -0.40312 0.41289 -0.49907 0.63929 l -0.82854 -0.32413 c 0.14802 -0.37789 0.34509 -0.67186 0.59204 -0.88199 0.24841 -0.21336 0.51987 -0.3624 0.81291 -0.44547 0.29603 -0.0864 0.58682 -0.12957 0.87319 -0.12957 0.18221 0 0.39196 0.0237 0.62845 0.0723 0.23874 0.0457 0.46932 0.14177 0.6917 0.28747 0.22386 0.14575 0.40982 0.36567 0.55782 0.65967 0.14799 0.29481 0.22238 0.68897 0.22238 1.18249 v 4.0972 h -0.87318 v -0.84207 h -0.0438 c -0.0595 0.13521 -0.15842 0.27934 -0.296 0.43325 -0.13838 0.15392 -0.32206 0.28504 -0.55114 0.39335 -0.22906 0.10754 -0.50871 0.16126 -0.83895 0.16126 z m 0.13314 -0.85838 c 0.3451 0 0.63591 -0.0741 0.87242 -0.22232 0.23874 -0.14819 0.41874 -0.34042 0.53997 -0.57496 0.1227 -0.23454 0.18445 -0.48212 0.18445 -0.74109 v -0.87466 c -0.0365 0.0489 -0.11829 0.0937 -0.24396 0.13357 -0.12348 0.0384 -0.26624 0.0717 -0.42914 0.10183 -0.15989 0.027 -0.3161 0.0513 -0.46931 0.0725 -0.15022 0.0188 -0.27222 0.0349 -0.36592 0.0489 -0.22685 0.0326 -0.43883 0.0845 -0.63591 0.15801 -0.19486 0.07 -0.35254 0.17671 -0.47378 0.31923 -0.11829 0.14088 -0.17702 0.33226 -0.17702 0.57496 0 0.33228 0.11245 0.5831 0.33618 0.75332 0.22686 0.16776 0.51393 0.25082 0.86202 0.25082 z m 7.18618 3.04502 v -8.55111 h 0.84341 v 0.98785 h 0.10346 c 0.0641 -0.10755 0.15245 -0.24594 0.26626 -0.41291 0.11608 -0.1702 0.28114 -0.32086 0.49534 -0.45361 0.21718 -0.13521 0.51022 -0.20196 0.87985 -0.20196 0.47824 0 0.89997 0.13025 1.26439 0.39254 0.36519 0.26143 0.65005 0.63278 0.85458 1.11328 0.20454 0.48049 0.30716 1.0473 0.30716 1.70045 0 0.65884 -0.1027 1.22971 -0.30716 1.71266 -0.20453 0.48049 -0.48788 0.85267 -0.85085 1.11735 -0.3622 0.26224 -0.7802 0.39253 -1.25324 0.39253 -0.36444 0 -0.65672 -0.0661 -0.87613 -0.19789 -0.21941 -0.13521 -0.38824 -0.28749 -0.50652 -0.4577 -0.11827 -0.17264 -0.20973 -0.31597 -0.27368 -0.42918 h -0.0742 v 3.2877 z m 0.85753 -5.44175 c 0 0.46989 0.0631 0.88441 0.18892 1.24356 0.12569 0.35589 0.3094 0.63523 0.55112 0.83802 0.24173 0.19952 0.537 0.2997 0.8873 0.2997 0.36519 0 0.66939 -0.1059 0.91335 -0.31599 0.24617 -0.21337 0.43137 -0.49922 0.55484 -0.85838 0.12569 -0.36158 0.18815 -0.7639 0.18815 -1.20691 0 -0.43734 -0.0617 -0.83151 -0.18442 -1.1817 -0.12129 -0.35426 -0.30496 -0.6336 -0.55114 -0.83883 -0.24396 -0.20767 -0.55112 -0.31108 -0.92078 -0.31108 -0.35478 0 -0.653 0.0985 -0.89473 0.29561 -0.24173 0.19382 -0.42396 0.46666 -0.54742 0.81765 -0.12361 0.34775 -0.18519 0.75413 -0.18519 1.21835 z m 8.00505 4.89123 v -2.67202 h 0.47301 c 0.11609 -0.13273 0.2157 -0.27527 0.29975 -0.42918 0.0842 -0.15392 0.15693 -0.33636 0.21792 -0.54647 0.0646 -0.21338 0.11829 -0.47315 0.16287 -0.77774 0.0447 -0.30785 0.0842 -0.6792 0.11829 -1.11328 l 0.19266 -2.4619 h 3.60868 v 5.32857 h 0.87243 v 2.67202 h -0.87243 v -1.7819 h -4.20074 v 1.7819 z m 1.46446 -2.67202 h 2.73627 v -4.43762 h -1.92336 l -0.14727 1.57095 c -0.0617 0.6507 -0.13838 1.21834 -0.22982 1.70452 -0.0908 0.48538 -0.2365 0.87303 -0.43582 1.16215 z m 11.14443 1.01961 c -0.54668 0 -1.01896 -0.13178 -1.41611 -0.39661 -0.39421 -0.26713 -0.69839 -0.63928 -0.91334 -1.11734 -0.21197 -0.48049 -0.31759 -1.03917 -0.31759 -1.67602 0 -0.63686 0.10574 -1.19879 0.31759 -1.68416 0.21495 -0.48865 0.51319 -0.86978 0.89475 -1.14179 0.38451 -0.27526 0.83373 -0.41289 1.34618 -0.41289 0.29604 0 0.58831 0.0538 0.87613 0.16125 0.2886 0.10821 0.55114 0.2834 0.78768 0.52691 0.23648 0.24025 0.42541 0.55867 0.56597 0.95528 0.14064 0.39661 0.21048 0.88524 0.21048 1.46591 v 0.40475 h -4.37777 v -0.8258 h 3.49043 c 0 -0.35099 -0.0641 -0.66453 -0.19186 -0.9398 -0.12582 -0.27527 -0.30571 -0.4927 -0.53998 -0.65152 -0.23204 -0.15962 -0.50576 -0.2386 -0.8211 -0.2386 -0.34733 0 -0.64854 0.0943 -0.90219 0.2834 -0.25137 0.18569 -0.44476 0.42919 -0.58086 0.72806 -0.13541 0.2997 -0.20306 0.62139 -0.20306 0.96424 v 0.55054 c 0 0.4699 0.0738 0.86732 0.22164 1.19389 0.15026 0.32414 0.35925 0.57089 0.62476 0.74111 0.26627 0.16776 0.57568 0.25165 0.92821 0.25165 0.22983 0 0.43659 -0.0359 0.6218 -0.1059 0.18667 -0.0723 0.34879 -0.1808 0.48417 -0.32332 0.13541 -0.14575 0.24024 -0.32738 0.31387 -0.54319 l 0.8434 0.25979 c -0.0885 0.31271 -0.23799 0.58799 -0.44773 0.82579 -0.20899 0.23455 -0.46782 0.41779 -0.77646 0.55053 -0.30794 0.12957 -0.65453 0.19381 -1.03905 0.19381 z m 6.80311 2.20293 v -8.55111 h 0.84345 v 0.98785 h 0.10335 c 0.0641 -0.10755 0.15247 -0.24594 0.26627 -0.41291 0.11609 -0.1702 0.28114 -0.32086 0.49533 -0.45361 0.2172 -0.13521 0.51022 -0.20196 0.87987 -0.20196 0.47825 0 0.89994 0.13025 1.26438 0.39254 0.36518 0.26143 0.65005 0.63278 0.85458 1.11328 0.20452 0.48049 0.30718 1.0473 0.30718 1.70045 0 0.65884 -0.1027 1.22971 -0.30718 1.71266 -0.20453 0.48049 -0.48791 0.85267 -0.85086 1.11735 -0.36219 0.26224 -0.7802 0.39253 -1.25321 0.39253 -0.36446 0 -0.65675 -0.0661 -0.87617 -0.19789 -0.21941 -0.13521 -0.38821 -0.28749 -0.50648 -0.4577 -0.1183 -0.17264 -0.20975 -0.31597 -0.27371 -0.42918 h -0.0743 v 3.2877 z m 0.85757 -5.44175 c 0 0.46989 0.0631 0.88441 0.18891 1.24356 0.12569 0.35589 0.30941 0.63523 0.55113 0.83802 0.24172 0.19952 0.53698 0.2997 0.88729 0.2997 0.36518 0 0.66938 -0.1059 0.91331 -0.31599 0.2462 -0.21337 0.4314 -0.49922 0.55487 -0.85838 0.12583 -0.36158 0.18817 -0.7639 0.18817 -1.20691 0 -0.43734 -0.0617 -0.83151 -0.18445 -1.1817 -0.12129 -0.35426 -0.30494 -0.6336 -0.55112 -0.83883 -0.24396 -0.20767 -0.55113 -0.31108 -0.92078 -0.31108 -0.35477 0 -0.65302 0.0985 -0.89473 0.29561 -0.24172 0.19382 -0.42393 0.46666 -0.54742 0.81765 -0.12347 0.34775 -0.18518 0.75413 -0.18518 1.21835 z m 10.91907 3.23882 c -0.51321 0 -0.96316 -0.13357 -1.34991 -0.40067 -0.38453 -0.26712 -0.685 -0.64095 -0.90218 -1.12142 -0.21419 -0.48049 -0.32204 -1.04161 -0.32204 -1.68416 0 -0.64745 0.1079 -1.21346 0.32204 -1.6964 0.21718 -0.48292 0.51765 -0.85836 0.90218 -1.12548 0.38675 -0.26712 0.8367 -0.40068 1.34991 -0.40068 0.51246 0 0.96092 0.13356 1.34545 0.40068 0.38751 0.26712 0.68797 0.64256 0.90217 1.12548 0.21719 0.48294 0.32578 1.04895 0.32578 1.6964 0 0.64255 -0.10855 1.20367 -0.32578 1.68416 -0.2142 0.48047 -0.51466 0.8543 -0.90217 1.12142 -0.38453 0.26711 -0.83299 0.40067 -1.34545 0.40067 z m 0 -0.85754 c 0.38899 0 0.70955 -0.11008 0.96092 -0.32822 0.2514 -0.21907 0.43808 -0.50654 0.55859 -0.86243 0.12062 -0.35671 0.18147 -0.74272 0.18147 -1.15806 0 -0.41535 -0.061 -0.80298 -0.18147 -1.16214 -0.12064 -0.35915 -0.30719 -0.64909 -0.55859 -0.87059 -0.25137 -0.22151 -0.57193 -0.33145 -0.96092 -0.33145 -0.38972 0 -0.71029 0.11008 -0.96167 0.33145 -0.25139 0.2215 -0.43732 0.51144 -0.55856 0.87059 -0.12063 0.35916 -0.18072 0.74679 -0.18072 1.16214 0 0.41534 0.0601 0.80135 0.18072 1.15806 0.12127 0.35589 0.30717 0.64336 0.55856 0.86243 0.25138 0.21826 0.57195 0.32822 0.96167 0.32822 z m 11.2441 -7.82307 0.44403 0.58311 c -0.17256 0.18405 -0.3719 0.31191 -0.59873 0.38521 -0.22685 0.0725 -0.48344 0.11733 -0.76905 0.13357 -0.28634 0.0164 -0.60393 0.0318 -0.95425 0.0481 -0.39418 0.0164 -0.72144 0.12133 -0.98026 0.31599 -0.25882 0.19463 -0.45815 0.4748 -0.5987 0.84207 -0.14065 0.3673 -0.23059 0.81765 -0.26999 1.35271 h 0.0742 c 0.1919 -0.38927 0.45814 -0.67512 0.79805 -0.85836 0.34065 -0.18406 0.70507 -0.27526 1.09481 -0.27526 0.44402 0 0.84339 0.11321 1.19817 0.33959 0.35478 0.22722 0.63592 0.56275 0.84268 1.00823 0.20751 0.44546 0.3109 0.99517 0.3109 1.64832 0 0.64988 -0.1065 1.21181 -0.31833 1.68416 -0.20898 0.47236 -0.50352 0.83638 -0.88358 1.09293 -0.37708 0.25407 -0.81962 0.38031 -1.32761 0.38031 -0.50723 0 -0.95274 -0.13026 -1.3343 -0.39254 -0.38227 -0.26466 -0.67979 -0.65557 -0.89177 -1.17436 -0.21196 -0.52039 -0.31757 -1.16457 -0.31757 -1.93092 v -0.66372 c 0 -1.38529 0.2142 -2.43505 0.64335 -3.15008 0.43138 -0.71585 1.07993 -1.0856 1.94492 -1.1092 0.30569 -0.011 0.57789 -0.0138 0.81739 -0.008 0.23874 0.004 0.44701 -0.008 0.62474 -0.0368 0.17777 -0.0302 0.32801 -0.10094 0.45073 -0.21499 z m -1.9375 7.82307 c 0.34288 0 0.63742 -0.0943 0.88434 -0.28342 0.24842 -0.18976 0.43956 -0.45524 0.57268 -0.7981 0.13316 -0.34531 0.20008 -0.7517 0.20008 -1.21834 0 -0.4536 -0.0683 -0.83964 -0.20379 -1.15806 -0.13314 -0.31844 -0.32426 -0.56193 -0.57269 -0.72888 -0.24915 -0.16777 -0.5474 -0.25082 -0.8955 -0.25082 -0.25361 0 -0.48119 0.0472 -0.68349 0.14177 -0.20232 0.0943 -0.37485 0.2329 -0.51766 0.41697 -0.14355 0.18323 -0.25437 0.40718 -0.33319 0.67187 -0.0759 0.26466 -0.11674 0.56681 -0.12206 0.90722 0 0.69632 0.14951 1.25337 0.44774 1.67196 0.29823 0.41859 0.70582 0.62789 1.22346 0.62789 z"/>
+                        <Path  Name="path560" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 76.003268 180.73257 2.568933 7.97697 h 0.101946 l 2.568932 -7.97697 h 1.098531 l -3.177334 9.47628 h -1.082151 l -3.178067 -9.47628 z m 12.304688 0 v 9.47628 h -1.047951 v -9.47628 z m 5.671146 9.47628 v -9.47628 h 2.924438 c 0.679045 0 1.233888 0.13357 1.665277 0.40232 0.433605 0.2655 0.754899 0.62464 0.96316 1.07825 0.208994 0.45362 0.313117 0.95935 0.313117 1.5172 0 0.55869 -0.104079 1.06605 -0.313117 1.52293 -0.205283 0.45606 -0.523609 0.82009 -0.954984 1.0921 -0.430626 0.26792 -0.983238 0.40231 -1.656339 0.40231 h -2.095916 v -1.01798 h 2.061704 c 0.46484 0 0.838208 -0.0881 1.120091 -0.26387 0.281884 -0.1759 0.486416 -0.41372 0.612863 -0.71259 0.129483 -0.30215 0.194112 -0.64337 0.194112 -1.0229 0 -0.37949 -0.06467 -0.71828 -0.194112 -1.01798 -0.126523 -0.29889 -0.332462 -0.53343 -0.617324 -0.70282 -0.284116 -0.17265 -0.661946 -0.25897 -1.131997 -0.25897 h -1.843023 v 8.45828 z"/>
+                        <Path  Name="path562" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 381.8229 69.012587 -2.95865 -11.846161 h 1.33131 l 2.26103 9.648116 h 0.10563 l 2.3034 -9.648116 h 1.47858 l 2.30343 9.648116 h 0.10562 l 2.26103 -9.648116 h 1.33055 l -2.9579 11.846161 h -1.35214 l -2.38746 -9.43962 h -0.0846 l -2.38747 9.43962 z m 24.81392 -8.143927 h -1.30975 c -0.078 -0.412897 -0.21346 -0.775302 -0.40683 -1.087211 -0.19041 -0.312737 -0.42321 -0.574966 -0.69764 -0.7867 -0.27073 -0.215814 -0.57195 -0.377881 -0.90293 -0.486199 -0.33096 -0.107558 -0.67608 -0.162067 -1.0353 -0.162067 -0.65525 0 -1.24876 0.181606 -1.78055 0.544011 -0.52808 0.362404 -0.94902 0.896651 -1.26216 1.601919 -0.31014 0.706079 -0.46483 1.571778 -0.46483 2.597101 0 1.026131 0.15469 1.891833 0.46483 2.597086 0.31314 0.706077 0.73408 1.239516 1.26216 1.601919 0.53179 0.363214 1.1253 0.544011 1.78055 0.544011 0.35922 0 0.70434 -0.05378 1.0353 -0.162066 0.33098 -0.107558 0.6322 -0.267926 0.90293 -0.479676 0.27443 -0.215814 0.50723 -0.480487 0.69764 -0.792398 0.19337 -0.316798 0.32874 -0.679204 0.40683 -1.088036 h 1.30975 c -0.0989 0.605915 -0.27817 1.147483 -0.53922 1.625524 -0.26031 0.478057 -0.5846 0.885255 -0.97134 1.220786 -0.3875 0.331453 -0.8226 0.583916 -1.3053 0.757381 -0.47897 0.173462 -0.99066 0.260609 -1.53659 0.260609 -0.92301 0 -1.74338 -0.246768 -2.46183 -0.740286 -0.71847 -0.493518 -1.28372 -1.195532 -1.69577 -2.106027 -0.41203 -0.909668 -0.61805 -1.989548 -0.61805 -3.238827 0 -1.249279 0.20602 -2.329174 0.61805 -3.238843 0.41205 -0.909684 0.9773 -1.611683 1.69577 -2.105201 0.71845 -0.493533 1.53882 -0.740285 2.46183 -0.740285 0.54593 0 1.05762 0.08631 1.53659 0.259783 0.4827 0.173465 0.9178 0.428373 1.3053 0.763905 0.38674 0.331451 0.71103 0.736205 0.97134 1.214262 0.26105 0.474788 0.4403 1.016354 0.53922 1.625525 z"/>
+                        <Canvas Name="g634" Clip="{StaticResource clip1_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path610" Fill="#FF140202" Data="m 911.075 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.73 -4.208 -4.152 0 -10.731 0.278 -10.731 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.658 4.208 6.974 0 8.584 -0.701 9.657 -4.208 z"/>
+                            <Path  Name="path612" Fill="#33FFFFFF" Data="m 911.075 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.73 -4.208 -4.152 0 -10.731 0.278 -10.731 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.658 4.208 6.974 0 8.584 -0.701 9.657 -4.208 z"/>
+                            <Path  Name="path614" Fill="#FF140202" Data="m 889.614 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path616" Fill="#33FFFFFF" Data="m 889.614 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path618" Fill="#FFFFFFFF" Opacity="0.2" Data="m 889.614 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path620" Fill="#FFFFFFFF" Opacity="0.4" Data="m 910.002 386.79 c 0 -0.757 -0.31 -1.293 -0.773 -1.689 -0.472 -0.403 -1.157 -0.707 -2.01 -0.929 -1.737 -0.453 -3.955 -0.52 -5.801 -0.52 -1.846 0 -4.065 0.067 -5.802 0.52 -0.853 0.222 -1.537 0.526 -2.009 0.929 -0.463 0.396 -0.774 0.932 -0.774 1.689 v 0 c 0.005 0.534 0.055 1.067 0.117 1.599 0.117 1.001 0.351 2.387 0.819 3.925 0.472 1.554 1.011 2.263 1.918 2.66 0.98 0.43 2.601 0.601 5.731 0.601 3.13 0 4.75 -0.171 5.73 -0.601 0.907 -0.397 1.447 -1.106 1.919 -2.66 0.467 -1.538 0.701 -2.924 0.819 -3.925 0.062 -0.531 0.113 -1.065 0.116 -1.599 z"/>
+                            <Path  Name="path622" Fill="#FFFFFFFF" Opacity="0.3" Data="m 890.687 387.159 c 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.658 4.208 6.974 0 8.584 -0.701 9.657 -4.208 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.73 -4.208 -4.152 0 -10.731 0.278 -10.731 4.208 z m 19.518 -1.888 c 0.521 0.443 0.87 1.042 0.87 1.889 -0.003 0.596 -0.061 1.192 -0.131 1.786 -0.132 1.119 -0.395 2.668 -0.921 4.387 -0.531 1.736 -1.138 2.529 -2.159 2.973 -1.102 0.481 -2.925 0.672 -6.446 0.672 -3.522 0 -5.345 -0.191 -6.447 -0.672 -1.02 -0.444 -1.627 -1.237 -2.159 -2.973 -0.526 -1.719 -0.789 -3.268 -0.921 -4.387 -0.07 -0.594 -0.128 -1.19 -0.131 -1.786 v -0.001 c 0 -0.846 0.349 -1.445 0.87 -1.888 0.531 -0.451 1.301 -0.789 2.261 -1.038 1.954 -0.506 4.45 -0.581 6.527 -0.581 2.076 0 4.572 0.075 6.526 0.581 0.96 0.249 1.73 0.587 2.261 1.038 z"/>
+                            <Path  Name="path624" Fill="#FF140202" Data="m 889.614 397.679 c 3.079 1.569 8.367 2.104 11.804 2.104 3.436 0 8.724 -0.535 11.803 -2.104 -1.026 -0.722 -2.566 -1.496 -4.105 -2.805 -1.54 0.654 -2.627 1.309 -7.698 1.309 -5.072 0 -6.159 -0.655 -7.698 -1.309 -1.54 1.309 -3.079 2.083 -4.106 2.805 z"/>
+                            <Path  Name="path626" Fill="#33FFFFFF" Data="m 889.614 397.679 c 3.079 1.569 8.367 2.104 11.804 2.104 3.436 0 8.724 -0.535 11.803 -2.104 -1.026 -0.722 -2.566 -1.496 -4.105 -2.805 -1.54 0.654 -2.627 1.309 -7.698 1.309 -5.072 0 -6.159 -0.655 -7.698 -1.309 -1.54 1.309 -3.079 2.083 -4.106 2.805 z"/>
+                            <Canvas Name="g632">
+                                <Path  Name="path628" Fill="#FFFFFFFF" Data="m 913.221 397.679 c -0.28 0.143 -0.579 0.277 -0.893 0.403 -1.207 -0.774 -2.559 -1.506 -3.575 -2.396 0.179 -0.165 0.404 -0.403 0.556 -0.651 1.474 1.213 2.929 1.952 3.912 2.644 z"/>
+                                <Path  Name="path630" Fill="#FFFFFFFF" Data="m 890.507 398.082 c -0.314 -0.126 -0.612 -0.26 -0.893 -0.403 0.983 -0.691 2.437 -1.43 3.91 -2.641 0.286 0.397 0.571 0.652 0.571 0.652 -1.1 0.859 -2.367 1.609 -3.588 2.392 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g660" Clip="{StaticResource clip2_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path636" Fill="#FF140202" Data="m 874.792 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.151 0 -10.73 0.278 -10.73 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 z"/>
+                            <Path  Name="path638" Fill="#33FFFFFF" Data="m 874.792 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.151 0 -10.73 0.278 -10.73 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 z"/>
+                            <Path  Name="path640" Fill="#FF140202" Data="m 853.331 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path642" Fill="#33FFFFFF" Data="m 853.331 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path644" Fill="#FFFFFFFF" Opacity="0.2" Data="m 853.331 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path646" Fill="#FFFFFFFF" Opacity="0.4" Data="m 873.719 386.79 c 0 -0.757 -0.311 -1.293 -0.774 -1.689 -0.472 -0.403 -1.156 -0.707 -2.009 -0.929 -1.737 -0.453 -3.956 -0.52 -5.802 -0.52 -1.846 0 -4.064 0.067 -5.801 0.52 -0.853 0.222 -1.538 0.526 -2.01 0.929 -0.463 0.396 -0.773 0.932 -0.773 1.689 v 0 c 0.005 0.534 0.054 1.067 0.116 1.599 0.118 1.001 0.352 2.387 0.819 3.925 0.472 1.554 1.012 2.263 1.919 2.66 0.98 0.43 2.6 0.601 5.73 0.601 3.13 0 4.751 -0.171 5.731 -0.601 0.907 -0.397 1.446 -1.106 1.918 -2.66 0.468 -1.538 0.702 -2.924 0.819 -3.925 0.062 -0.531 0.114 -1.065 0.117 -1.599 z"/>
+                            <Path  Name="path648" Fill="#FFFFFFFF" Opacity="0.3" Data="m 854.404 387.159 c 0 0 0 2.805 1.073 6.312 1.073 3.507 2.683 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.151 0 -10.73 0.278 -10.73 4.208 z m 19.518 -1.888 c 0.521 0.443 0.87 1.042 0.87 1.889 -0.003 0.596 -0.061 1.192 -0.131 1.786 -0.132 1.119 -0.395 2.668 -0.921 4.387 -0.532 1.736 -1.139 2.529 -2.159 2.973 -1.102 0.481 -2.925 0.672 -6.447 0.672 -3.521 0 -5.344 -0.191 -6.446 -0.672 -1.021 -0.444 -1.628 -1.237 -2.159 -2.973 -0.526 -1.719 -0.789 -3.268 -0.921 -4.387 -0.07 -0.594 -0.128 -1.19 -0.131 -1.786 v -0.001 c 0 -0.846 0.349 -1.445 0.87 -1.888 0.531 -0.451 1.301 -0.789 2.261 -1.038 1.954 -0.506 4.45 -0.581 6.526 -0.581 2.077 0 4.573 0.075 6.527 0.581 0.96 0.249 1.73 0.587 2.261 1.038 z"/>
+                            <Path  Name="path650" Fill="#FF140202" Data="m 853.331 397.679 c 3.079 1.569 8.367 2.104 11.803 2.104 3.437 0 8.725 -0.535 11.804 -2.104 -1.027 -0.722 -2.566 -1.496 -4.106 -2.805 -1.539 0.654 -2.626 1.309 -7.698 1.309 -5.071 0 -6.158 -0.655 -7.698 -1.309 -1.539 1.309 -3.079 2.083 -4.105 2.805 z"/>
+                            <Path  Name="path652" Fill="#33FFFFFF" Data="m 853.331 397.679 c 3.079 1.569 8.367 2.104 11.803 2.104 3.437 0 8.725 -0.535 11.804 -2.104 -1.027 -0.722 -2.566 -1.496 -4.106 -2.805 -1.539 0.654 -2.626 1.309 -7.698 1.309 -5.071 0 -6.158 -0.655 -7.698 -1.309 -1.539 1.309 -3.079 2.083 -4.105 2.805 z"/>
+                            <Canvas Name="g658">
+                                <Path  Name="path654" Fill="#FFFFFFFF" Data="m 876.938 397.679 c -0.281 0.143 -0.579 0.277 -0.893 0.403 -1.207 -0.774 -2.56 -1.506 -3.576 -2.396 0.18 -0.165 0.405 -0.403 0.556 -0.651 1.475 1.213 2.929 1.952 3.913 2.644 z"/>
+                                <Path  Name="path656" Fill="#FFFFFFFF" Data="m 854.224 398.082 c -0.314 -0.126 -0.613 -0.26 -0.893 -0.403 0.983 -0.691 2.436 -1.43 3.91 -2.641 0.286 0.397 0.571 0.652 0.571 0.652 -1.101 0.859 -2.368 1.609 -3.588 2.392 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g686" Clip="{StaticResource clip3_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path662" Fill="#FF140202" Data="m 839.576 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.152 0 -10.73 0.278 -10.73 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.682 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 z"/>
+                            <Path  Name="path664" Fill="#33FFFFFF" Data="m 839.576 393.471 c 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.152 0 -10.73 0.278 -10.73 4.208 0 0 0 2.805 1.073 6.312 1.073 3.507 2.682 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 z"/>
+                            <Path  Name="path666" Fill="#FF140202" Data="m 818.115 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path668" Fill="#33FFFFFF" Data="m 818.115 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path670" Fill="#FFFFFFFF" Opacity="0.2" Data="m 818.115 398.731 v -1.052 h 23.607 v 1.052 c -1.073 1.052 -6.331 2.455 -12.34 2.455 -6.009 0 -10.194 -1.403 -11.267 -2.455 z"/>
+                            <Path  Name="path672" Fill="#FFFFFFFF" Opacity="0.4" Data="m 838.503 386.79 c 0 -0.757 -0.311 -1.293 -0.774 -1.689 -0.472 -0.403 -1.156 -0.707 -2.009 -0.929 -1.737 -0.453 -3.956 -0.52 -5.802 -0.52 -1.846 0 -4.064 0.067 -5.801 0.52 -0.853 0.222 -1.538 0.526 -2.01 0.929 -0.463 0.396 -0.773 0.932 -0.773 1.689 v 0 c 0.005 0.534 0.054 1.067 0.116 1.599 0.117 1.001 0.352 2.387 0.819 3.925 0.472 1.554 1.012 2.263 1.919 2.66 0.98 0.43 2.6 0.601 5.73 0.601 3.13 0 4.751 -0.171 5.731 -0.601 0.907 -0.397 1.446 -1.106 1.918 -2.66 0.468 -1.538 0.702 -2.924 0.819 -3.925 0.062 -0.531 0.114 -1.065 0.117 -1.599 z"/>
+                            <Path  Name="path674" Fill="#FFFFFFFF" Opacity="0.3" Data="m 819.188 387.159 c 0 0 0 2.805 1.073 6.312 1.073 3.507 2.682 4.208 9.657 4.208 6.975 0 8.585 -0.701 9.658 -4.208 1.073 -3.507 1.073 -6.312 1.073 -6.312 0 -3.93 -6.579 -4.208 -10.731 -4.208 -4.152 0 -10.73 0.278 -10.73 4.208 z m 19.518 -1.888 c 0.52 0.443 0.87 1.042 0.87 1.889 -0.003 0.596 -0.061 1.192 -0.131 1.786 -0.132 1.119 -0.395 2.668 -0.922 4.387 -0.531 1.736 -1.138 2.529 -2.158 2.973 -1.102 0.481 -2.926 0.672 -6.447 0.672 -3.521 0 -5.344 -0.191 -6.446 -0.672 -1.021 -0.444 -1.628 -1.237 -2.159 -2.973 -0.526 -1.719 -0.789 -3.268 -0.921 -4.387 -0.07 -0.594 -0.128 -1.19 -0.131 -1.786 v -0.001 c 0 -0.846 0.349 -1.445 0.87 -1.888 0.531 -0.451 1.301 -0.789 2.261 -1.038 1.954 -0.506 4.45 -0.581 6.526 -0.581 2.077 0 4.573 0.075 6.527 0.581 0.959 0.249 1.73 0.587 2.261 1.038 z"/>
+                            <Path  Name="path676" Fill="#FF140202" Data="m 818.115 397.679 c 3.079 1.569 8.367 2.104 11.803 2.104 3.436 0 8.725 -0.535 11.804 -2.104 -1.027 -0.722 -2.566 -1.496 -4.106 -2.805 -1.539 0.654 -2.626 1.309 -7.698 1.309 -5.071 0 -6.158 -0.655 -7.698 -1.309 -1.539 1.309 -3.079 2.083 -4.105 2.805 z"/>
+                            <Path  Name="path678" Fill="#33FFFFFF" Data="m 818.115 397.679 c 3.079 1.569 8.367 2.104 11.803 2.104 3.436 0 8.725 -0.535 11.804 -2.104 -1.027 -0.722 -2.566 -1.496 -4.106 -2.805 -1.539 0.654 -2.626 1.309 -7.698 1.309 -5.071 0 -6.158 -0.655 -7.698 -1.309 -1.539 1.309 -3.079 2.083 -4.105 2.805 z"/>
+                            <Canvas Name="g684">
+                                <Path  Name="path680" Fill="#FFFFFFFF" Data="m 841.722 397.679 c -0.281 0.143 -0.579 0.277 -0.893 0.403 -1.207 -0.774 -2.56 -1.506 -3.576 -2.396 0.18 -0.165 0.404 -0.403 0.556 -0.651 1.475 1.213 2.929 1.952 3.913 2.644 z"/>
+                                <Path  Name="path682" Fill="#FFFFFFFF" Data="m 819.008 398.082 c -0.314 -0.126 -0.613 -0.26 -0.893 -0.403 0.983 -0.691 2.436 -1.43 3.91 -2.641 0.286 0.397 0.571 0.652 0.571 0.652 -1.101 0.859 -2.368 1.609 -3.588 2.392 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g712" Clip="{StaticResource clip4_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path688" Fill="#FF140202" Data="m 804.363 395.347 c 2.644 -2.488 4.017 -4.918 4.017 -4.918 1.922 -3.404 -3.639 -7.006 -7.235 -9.128 -3.595 -2.122 -9.429 -5.243 -11.351 -1.84 0 0 -1.372 2.43 -2.159 6.015 -0.786 3.585 0.265 5.015 6.306 8.58 6.04 3.564 7.777 3.78 10.422 1.291 z"/>
+                            <Path  Name="path690" Fill="#33FFFFFF" Data="m 804.363 395.347 c 2.644 -2.488 4.017 -4.918 4.017 -4.918 1.922 -3.404 -3.639 -7.006 -7.235 -9.128 -3.595 -2.122 -9.429 -5.243 -11.351 -1.84 0 0 -1.372 2.43 -2.159 6.015 -0.786 3.585 0.265 5.015 6.306 8.58 6.04 3.564 7.777 3.78 10.422 1.291 z"/>
+                            <Path  Name="path692" Fill="#FF140202" Data="m 783.204 388.935 0.514 -0.911 20.445 12.064 -0.515 0.911 c -1.444 0.363 -6.684 -1.109 -11.888 -4.18 -5.204 -3.071 -8.142 -6.425 -8.556 -7.884 z"/>
+                            <Path  Name="path694" Fill="#33FFFFFF" Data="m 783.204 388.935 0.514 -0.911 20.445 12.064 -0.515 0.911 c -1.444 0.363 -6.684 -1.109 -11.888 -4.18 -5.204 -3.071 -8.142 -6.425 -8.556 -7.884 z"/>
+                            <Path  Name="path696" Fill="#FFFFFFFF" Opacity="0.2" Data="m 783.204 388.935 0.514 -0.911 20.445 12.064 -0.515 0.911 c -1.444 0.363 -6.684 -1.109 -11.888 -4.18 -5.204 -3.071 -8.142 -6.425 -8.556 -7.884 z"/>
+                            <Path  Name="path698" Fill="#FFFFFFFF" Opacity="0.4" Data="m 806.701 389.013 c 0.371 -0.656 0.364 -1.279 0.157 -1.858 -0.211 -0.591 -0.656 -1.203 -1.286 -1.832 -1.282 -1.28 -3.171 -2.471 -4.77 -3.415 -1.599 -0.943 -3.552 -2.019 -5.278 -2.515 -0.848 -0.243 -1.589 -0.33 -2.195 -0.222 -0.595 0.106 -1.126 0.412 -1.496 1.067 v 10e-4 c -0.257 0.464 -0.475 0.952 -0.681 1.444 -0.389 0.926 -0.864 2.247 -1.211 3.818 -0.351 1.586 -0.231 2.476 0.36 3.284 0.638 0.873 1.958 1.849 4.669 3.449 2.71 1.599 4.197 2.28 5.256 2.408 0.98 0.119 1.794 -0.219 2.963 -1.323 1.158 -1.093 2.038 -2.174 2.629 -2.981 0.314 -0.428 0.62 -0.864 0.883 -1.325 z"/>
+                            <Path  Name="path700" Fill="#FFFFFFFF" Opacity="0.3" Data="m 789.794 379.461 c 0 0 -1.372 2.43 -2.159 6.015 -0.786 3.585 0.265 5.015 6.306 8.58 6.04 3.564 7.777 3.78 10.422 1.291 2.644 -2.488 4.017 -4.918 4.017 -4.918 1.922 -3.404 -3.639 -7.006 -7.235 -9.128 -3.595 -2.122 -9.429 -5.243 -11.351 -1.84 z m 17.826 8.34 c 0.235 0.649 0.244 1.347 -0.17 2.08 -0.294 0.515 -0.636 1.002 -0.987 1.481 -0.662 0.901 -1.648 2.108 -2.944 3.328 -1.31 1.232 -2.223 1.608 -3.324 1.472 -1.19 -0.148 -2.862 -0.914 -5.911 -2.714 -3.05 -1.799 -4.535 -2.896 -5.255 -3.876 -0.666 -0.906 -0.804 -1.903 -0.415 -3.677 0.385 -1.758 0.915 -3.234 1.348 -4.271 0.23 -0.55 0.472 -1.096 0.761 -1.614 v 0 c 0.414 -0.733 1.01 -1.074 1.677 -1.191 0.68 -0.119 1.513 -0.018 2.466 0.257 1.94 0.56 4.138 1.771 5.936 2.832 1.799 1.062 3.924 2.402 5.368 3.839 0.71 0.706 1.211 1.392 1.45 2.054 z"/>
+                            <Path  Name="path702" Fill="#FF140202" Data="m 783.718 388.023 c 1.9 2.933 6.217 6.099 9.193 7.855 2.976 1.756 7.817 3.995 11.252 4.21 -0.536 -1.15 -1.491 -2.607 -2.184 -4.528 -1.653 -0.22 -2.915 -0.208 -7.307 -2.8 -4.392 -2.592 -5.013 -3.714 -6.026 -5.068 -1.973 0.347 -3.685 0.231 -4.928 0.331 z"/>
+                            <Path  Name="path704" Fill="#33FFFFFF" Data="m 783.718 388.023 c 1.9 2.933 6.217 6.099 9.193 7.855 2.976 1.756 7.817 3.995 11.252 4.21 -0.536 -1.15 -1.491 -2.607 -2.184 -4.528 -1.653 -0.22 -2.915 -0.208 -7.307 -2.8 -4.392 -2.592 -5.013 -3.714 -6.026 -5.068 -1.973 0.347 -3.685 0.231 -4.928 0.331 z"/>
+                            <Canvas Name="g710">
+                                <Path  Name="path706" Fill="#FFFFFFFF" Data="m 804.163 400.088 c -0.313 -0.019 -0.638 -0.056 -0.971 -0.107 -0.667 -1.288 -1.48 -2.613 -1.924 -3.902 0.236 -0.051 0.547 -0.143 0.8 -0.28 0.683 1.803 1.581 3.187 2.095 4.289 z"/>
+                                <Path  Name="path708" Fill="#FFFFFFFF" Data="m 784.294 388.829 c -0.21 -0.269 -0.403 -0.538 -0.576 -0.805 1.19 -0.097 2.81 0.006 4.679 -0.29 0.053 0.491 0.175 0.857 0.175 0.857 -1.373 0.181 -2.837 0.184 -4.278 0.238 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g738" Clip="{StaticResource clip5_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path714" Fill="#FF140202" Data="m 777.984 342.362 c 3.43 1.097 6.175 1.097 6.175 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.243 -0.272 -10.967 -4.117 -10.967 0 0 -2.745 0 -6.175 1.096 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.775 4.117 9.871 z"/>
+                            <Path  Name="path716" Fill="#33FFFFFF" Data="m 777.984 342.362 c 3.43 1.097 6.175 1.097 6.175 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.243 -0.272 -10.967 -4.117 -10.967 0 0 -2.745 0 -6.175 1.096 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.775 4.117 9.871 z"/>
+                            <Path  Name="path718" Fill="#FF140202" Data="m 772.837 320.427 h 1.03 v 24.129 h -1.03 c -1.029 -1.097 -2.401 -6.471 -2.401 -12.613 0 -6.142 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path720" Fill="#33FFFFFF" Data="m 772.837 320.427 h 1.03 v 24.129 h -1.03 c -1.029 -1.097 -2.401 -6.471 -2.401 -12.613 0 -6.142 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path722" Fill="#FFFFFFFF" Opacity="0.2" Data="m 772.837 320.427 h 1.03 v 24.129 h -1.03 c -1.029 -1.097 -2.401 -6.471 -2.401 -12.613 0 -6.142 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path724" Fill="#FFFFFFFF" Opacity="0.4" Data="m 784.52 341.266 c 0.74 0 1.265 -0.318 1.653 -0.791 0.394 -0.482 0.691 -1.182 0.908 -2.054 0.444 -1.775 0.509 -4.043 0.509 -5.93 0 -1.886 -0.065 -4.154 -0.509 -5.929 -0.217 -0.872 -0.514 -1.572 -0.908 -2.054 -0.388 -0.474 -0.912 -0.791 -1.653 -0.791 v 0 c -0.522 0.005 -1.044 0.056 -1.564 0.119 -0.98 0.12 -2.336 0.359 -3.841 0.837 -1.519 0.483 -2.213 1.034 -2.602 1.961 -0.421 1.002 -0.588 2.658 -0.588 5.857 0 3.2 0.167 4.856 0.588 5.857 0.389 0.927 1.083 1.479 2.602 1.962 1.505 0.478 2.861 0.717 3.841 0.837 0.519 0.063 1.042 0.116 1.564 0.119 z"/>
+                            <Path  Name="path726" Fill="#FFFFFFFF" Opacity="0.3" Data="m 784.159 321.524 c 0 0 -2.745 0 -6.175 1.096 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.775 4.117 9.871 3.43 1.097 6.175 1.097 6.175 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.243 -0.272 -10.967 -4.117 -10.967 z m 1.847 19.949 c -0.433 0.533 -1.02 0.889 -1.848 0.889 -0.583 -0.003 -1.167 -0.062 -1.748 -0.134 -1.094 -0.134 -2.61 -0.403 -4.292 -0.941 -1.698 -0.543 -2.474 -1.164 -2.909 -2.206 -0.469 -1.127 -0.656 -2.991 -0.656 -6.59 0 -3.599 0.187 -5.462 0.656 -6.589 0.435 -1.043 1.211 -1.663 2.909 -2.206 1.682 -0.538 3.198 -0.807 4.292 -0.942 0.581 -0.071 1.165 -0.131 1.748 -0.134 h 10e-4 c 0.828 0 1.414 0.357 1.847 0.89 0.441 0.542 0.772 1.33 1.015 2.31 0.496 1.998 0.569 4.549 0.569 6.671 0 2.123 -0.073 4.674 -0.569 6.671 -0.243 0.981 -0.574 1.768 -1.015 2.311 z"/>
+                            <Path  Name="path728" Fill="#FF140202" Data="m 773.867 320.427 c -1.535 3.147 -2.059 8.552 -2.059 12.064 0 3.513 0.524 8.918 2.059 12.065 0.706 -1.049 1.463 -2.623 2.744 -4.196 -0.64 -1.574 -1.281 -2.685 -1.281 -7.869 0 -5.183 0.641 -6.294 1.281 -7.868 -1.281 -1.574 -2.038 -3.147 -2.744 -4.196 z"/>
+                            <Path  Name="path730" Fill="#33FFFFFF" Data="m 773.867 320.427 c -1.535 3.147 -2.059 8.552 -2.059 12.064 0 3.513 0.524 8.918 2.059 12.065 0.706 -1.049 1.463 -2.623 2.744 -4.196 -0.64 -1.574 -1.281 -2.685 -1.281 -7.869 0 -5.183 0.641 -6.294 1.281 -7.868 -1.281 -1.574 -2.038 -3.147 -2.744 -4.196 z"/>
+                            <Canvas Name="g736">
+                                <Path  Name="path732" Fill="#FFFFFFFF" Data="m 773.867 344.556 c -0.14 -0.287 -0.272 -0.592 -0.395 -0.913 0.758 -1.234 1.474 -2.616 2.344 -3.654 0.162 0.183 0.395 0.413 0.637 0.568 -1.186 1.507 -1.91 2.994 -2.586 3.999 z"/>
+                                <Path  Name="path734" Fill="#FFFFFFFF" Data="m 773.472 321.34 c 0.123 -0.321 0.255 -0.627 0.395 -0.913 0.676 1.004 1.399 2.49 2.584 3.996 -0.389 0.292 -0.638 0.584 -0.638 0.584 -0.841 -1.125 -1.575 -2.42 -2.341 -3.667 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g764" Clip="{StaticResource clip6_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path740" Fill="#FF140202" Data="m 780.523 373.367 c 3.565 0.472 6.268 -0.016 6.268 -0.016 3.787 -0.682 2.912 -7.352 2.191 -11.531 -0.721 -4.18 -2.131 -10.753 -5.918 -10.071 0 0 -2.703 0.487 -5.895 2.176 -3.192 1.689 -3.588 3.431 -2.377 10.452 1.211 7.021 2.166 8.519 5.731 8.99 z"/>
+                            <Path  Name="path742" Fill="#33FFFFFF" Data="m 780.523 373.367 c 3.565 0.472 6.268 -0.016 6.268 -0.016 3.787 -0.682 2.912 -7.352 2.191 -11.531 -0.721 -4.18 -2.131 -10.753 -5.918 -10.071 0 0 -2.703 0.487 -5.895 2.176 -3.192 1.689 -3.588 3.431 -2.377 10.452 1.211 7.021 2.166 8.519 5.731 8.99 z"/>
+                            <Path  Name="path744" Fill="#FF140202" Data="m 771.728 352.678 1.014 -0.182 4.099 23.762 -1.013 0.183 c -1.2 -0.897 -3.465 -5.946 -4.508 -11.995 -1.044 -6.049 -0.419 -10.505 0.408 -11.768 z"/>
+                            <Path  Name="path746" Fill="#33FFFFFF" Data="m 771.728 352.678 1.014 -0.182 4.099 23.762 -1.013 0.183 c -1.2 -0.897 -3.465 -5.946 -4.508 -11.995 -1.044 -6.049 -0.419 -10.505 0.408 -11.768 z"/>
+                            <Path  Name="path748" Fill="#FFFFFFFF" Opacity="0.2" Data="m 771.728 352.678 1.014 -0.182 4.099 23.762 -1.013 0.183 c -1.2 -0.897 -3.465 -5.946 -4.508 -11.995 -1.044 -6.049 -0.419 -10.505 0.408 -11.768 z"/>
+                            <Path  Name="path750" Fill="#FFFFFFFF" Opacity="0.4" Data="m 786.773 371.127 c 0.73 -0.131 1.193 -0.537 1.494 -1.072 0.307 -0.545 0.48 -1.287 0.546 -2.184 0.135 -1.827 -0.186 -4.072 -0.507 -5.93 -0.32 -1.858 -0.77 -4.079 -1.508 -5.749 -0.362 -0.82 -0.773 -1.456 -1.244 -1.862 -0.461 -0.397 -1.032 -0.616 -1.761 -0.485 h -10e-4 c -0.513 0.098 -1.018 0.24 -1.52 0.395 -0.944 0.292 -2.239 0.768 -3.64 1.506 -1.414 0.745 -2.004 1.411 -2.229 2.393 -0.244 1.061 -0.128 2.722 0.416 5.873 0.543 3.15 0.99 4.752 1.574 5.664 0.54 0.843 1.317 1.263 2.896 1.469 1.563 0.204 2.939 0.199 3.924 0.143 0.523 -0.03 1.046 -0.071 1.56 -0.161 z"/>
+                            <Path  Name="path752" Fill="#FFFFFFFF" Opacity="0.3" Data="m 783.064 351.749 c 0 0 -2.703 0.487 -5.895 2.176 -3.192 1.689 -3.588 3.431 -2.377 10.452 1.211 7.021 2.166 8.519 5.731 8.99 3.565 0.472 6.268 -0.016 6.268 -0.016 3.787 -0.682 2.912 -7.352 2.191 -11.531 -0.721 -4.18 -2.131 -10.753 -5.918 -10.071 z m 5.208 19.319 c -0.335 0.601 -0.853 1.057 -1.668 1.203 -0.575 0.101 -1.16 0.146 -1.744 0.179 -1.101 0.062 -2.639 0.065 -4.387 -0.166 -1.765 -0.233 -2.634 -0.706 -3.239 -1.656 -0.654 -1.026 -1.155 -2.828 -1.766 -6.373 -0.612 -3.544 -0.745 -5.412 -0.473 -6.605 0.251 -1.105 0.909 -1.853 2.489 -2.689 1.566 -0.829 3.012 -1.363 4.068 -1.69 0.559 -0.173 1.124 -0.335 1.698 -0.442 h 10e-4 c 0.815 -0.147 1.453 0.101 1.97 0.548 0.526 0.456 0.986 1.173 1.392 2.096 0.828 1.878 1.333 4.378 1.693 6.468 0.361 2.091 0.723 4.616 0.574 6.671 -0.073 1.009 -0.265 1.843 -0.608 2.456 z"/>
+                            <Path  Name="path754" Fill="#FF140202" Data="m 772.742 352.496 c -0.977 3.372 -0.574 8.788 0.023 12.246 0.596 3.459 2.03 8.689 4.076 11.516 0.518 -1.158 0.996 -2.842 1.99 -4.619 -0.898 -1.436 -1.717 -2.417 -2.598 -7.522 -0.88 -5.105 -0.438 -6.312 -0.075 -7.976 -1.529 -1.322 -2.542 -2.737 -3.416 -3.645 z"/>
+                            <Path  Name="path756" Fill="#33FFFFFF" Data="m 772.742 352.496 c -0.977 3.372 -0.574 8.788 0.023 12.246 0.596 3.459 2.03 8.689 4.076 11.516 0.518 -1.158 0.996 -2.842 1.99 -4.619 -0.898 -1.436 -1.717 -2.417 -2.598 -7.522 -0.88 -5.105 -0.438 -6.312 -0.075 -7.976 -1.529 -1.322 -2.542 -2.737 -3.416 -3.645 z"/>
+                            <Canvas Name="g762">
+                                <Path  Name="path758" Fill="#FFFFFFFF" Data="m 776.841 376.258 c -0.186 -0.257 -0.367 -0.534 -0.543 -0.828 0.536 -1.35 1.007 -2.838 1.687 -4.016 0.191 0.153 0.459 0.337 0.724 0.447 -0.912 1.695 -1.372 3.287 -1.868 4.397 z"/>
+                                <Path  Name="path760" Fill="#FFFFFFFF" Data="m 772.509 353.465 c 0.067 -0.338 0.144 -0.662 0.233 -0.969 0.837 0.869 1.801 2.204 3.224 3.477 -0.333 0.357 -0.529 0.688 -0.529 0.688 -1.019 -0.959 -1.962 -2.104 -2.928 -3.196 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g790" Clip="{StaticResource clip7_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path766" Fill="#FF140202" Data="m 631.529 513.64 c 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 0 0 -2.745 0 -6.176 1.097 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.774 4.117 9.871 z"/>
+                            <Path  Name="path768" Fill="#33FFFFFF" Data="m 631.529 513.64 c 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 0 0 -2.745 0 -6.176 1.097 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.774 4.117 9.871 z"/>
+                            <Path  Name="path770" Fill="#FF140202" Data="m 626.383 491.704 h 1.029 v 24.13 h -1.029 c -1.029 -1.097 -2.402 -6.471 -2.402 -12.613 0 -6.142 1.373 -10.42 2.402 -11.517 z"/>
+                            <Path  Name="path772" Fill="#33FFFFFF" Data="m 626.383 491.704 h 1.029 v 24.13 h -1.029 c -1.029 -1.097 -2.402 -6.471 -2.402 -12.613 0 -6.142 1.373 -10.42 2.402 -11.517 z"/>
+                            <Path  Name="path774" Fill="#FFFFFFFF" Opacity="0.2" Data="m 626.383 491.704 h 1.029 v 24.13 h -1.029 c -1.029 -1.097 -2.402 -6.471 -2.402 -12.613 0 -6.142 1.373 -10.42 2.402 -11.517 z"/>
+                            <Path  Name="path776" Fill="#FFFFFFFF" Opacity="0.4" Data="m 638.065 512.543 c 0.741 0 1.266 -0.317 1.653 -0.79 0.395 -0.483 0.691 -1.182 0.909 -2.054 0.443 -1.775 0.508 -4.043 0.508 -5.93 0 -1.887 -0.065 -4.154 -0.508 -5.93 -0.218 -0.872 -0.514 -1.571 -0.909 -2.054 -0.387 -0.473 -0.912 -0.79 -1.652 -0.79 h -10e-4 c -0.522 0.005 -1.044 0.055 -1.564 0.119 -0.979 0.119 -2.335 0.359 -3.84 0.837 -1.52 0.482 -2.214 1.034 -2.603 1.961 -0.42 1.001 -0.587 2.658 -0.587 5.857 0 3.199 0.167 4.856 0.587 5.857 0.389 0.927 1.083 1.479 2.603 1.961 1.505 0.478 2.861 0.718 3.84 0.837 0.52 0.064 1.043 0.117 1.564 0.119 z"/>
+                            <Path  Name="path778" Fill="#FFFFFFFF" Opacity="0.3" Data="m 637.705 492.801 c 0 0 -2.745 0 -6.176 1.097 -3.431 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.686 8.774 4.117 9.871 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 z m 1.846 19.95 c -0.432 0.532 -1.019 0.889 -1.847 0.889 -0.583 -0.003 -1.167 -0.062 -1.748 -0.134 -1.095 -0.134 -2.61 -0.404 -4.292 -0.941 -1.699 -0.543 -2.474 -1.164 -2.909 -2.207 -0.47 -1.126 -0.657 -2.99 -0.657 -6.589 0 -3.599 0.187 -5.463 0.657 -6.589 0.435 -1.043 1.21 -1.664 2.909 -2.206 1.682 -0.538 3.197 -0.807 4.292 -0.942 0.581 -0.072 1.165 -0.131 1.748 -0.134 h 0.001 c 0.827 0 1.414 0.357 1.846 0.889 0.441 0.543 0.773 1.33 1.016 2.311 0.496 1.997 0.568 4.548 0.568 6.671 0 2.123 -0.072 4.674 -0.568 6.671 -0.243 0.981 -0.575 1.768 -1.016 2.311 z"/>
+                            <Path  Name="path780" Fill="#FF140202" Data="m 627.412 491.704 c -1.535 3.148 -2.058 8.553 -2.058 12.065 0 3.512 0.523 8.917 2.058 12.065 0.707 -1.049 1.464 -2.623 2.745 -4.197 -0.641 -1.573 -1.281 -2.684 -1.281 -7.868 0 -5.184 0.64 -6.294 1.281 -7.868 -1.281 -1.574 -2.038 -3.147 -2.745 -4.197 z"/>
+                            <Path  Name="path782" Fill="#33FFFFFF" Data="m 627.412 491.704 c -1.535 3.148 -2.058 8.553 -2.058 12.065 0 3.512 0.523 8.917 2.058 12.065 0.707 -1.049 1.464 -2.623 2.745 -4.197 -0.641 -1.573 -1.281 -2.684 -1.281 -7.868 0 -5.184 0.64 -6.294 1.281 -7.868 -1.281 -1.574 -2.038 -3.147 -2.745 -4.197 z"/>
+                            <Canvas Name="g788">
+                                <Path  Name="path784" Fill="#FFFFFFFF" Data="m 627.412 515.834 c -0.14 -0.287 -0.271 -0.592 -0.394 -0.913 0.757 -1.234 1.473 -2.616 2.344 -3.655 0.161 0.184 0.395 0.413 0.637 0.569 -1.186 1.507 -1.91 2.993 -2.587 3.999 z"/>
+                                <Path  Name="path786" Fill="#FFFFFFFF" Data="m 627.018 492.617 c 0.123 -0.321 0.254 -0.626 0.394 -0.913 0.677 1.005 1.4 2.491 2.585 3.997 -0.39 0.292 -0.639 0.583 -0.639 0.583 -0.84 -1.124 -1.574 -2.419 -2.34 -3.667 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g816" Clip="{StaticResource clip8_0_1}">
+                            <Canvas.RenderTransform>
+                                <MatrixTransform Matrix="0.74375555 0 0 0.81439247 -205.98867 -90.351806"/>
+                            </Canvas.RenderTransform>
+                            <Path  Name="path792" Fill="#FF140202" Data="m 776.916 307.458 c 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 0 0 -2.745 0 -6.176 1.097 -3.43 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.687 8.774 4.117 9.871 z"/>
+                            <Path  Name="path794" Fill="#33FFFFFF" Data="m 776.916 307.458 c 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 0 0 -2.745 0 -6.176 1.097 -3.43 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.687 8.774 4.117 9.871 z"/>
+                            <Path  Name="path796" Fill="#FF140202" Data="m 771.77 285.522 h 1.029 v 24.129 h -1.029 c -1.029 -1.096 -2.401 -6.471 -2.401 -12.613 0 -6.141 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path798" Fill="#33FFFFFF" Data="m 771.77 285.522 h 1.029 v 24.129 h -1.029 c -1.029 -1.096 -2.401 -6.471 -2.401 -12.613 0 -6.141 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path800" Fill="#FFFFFFFF" Opacity="0.2" Data="m 771.77 285.522 h 1.029 v 24.129 h -1.029 c -1.029 -1.096 -2.401 -6.471 -2.401 -12.613 0 -6.141 1.372 -10.419 2.401 -11.516 z"/>
+                            <Path  Name="path802" Fill="#FFFFFFFF" Opacity="0.4" Data="m 783.452 306.361 c 0.741 0 1.266 -0.317 1.653 -0.79 0.395 -0.483 0.692 -1.183 0.909 -2.054 0.443 -1.776 0.509 -4.043 0.509 -5.93 0 -1.887 -0.066 -4.155 -0.509 -5.93 -0.217 -0.872 -0.514 -1.571 -0.909 -2.054 -0.387 -0.473 -0.911 -0.79 -1.652 -0.79 h -10e-4 c -0.521 0.004 -1.044 0.055 -1.563 0.119 -0.98 0.119 -2.336 0.359 -3.841 0.837 -1.52 0.482 -2.213 1.034 -2.602 1.961 -0.421 1.001 -0.588 2.658 -0.588 5.857 0 3.199 0.167 4.856 0.588 5.857 0.389 0.927 1.082 1.479 2.602 1.961 1.505 0.478 2.861 0.717 3.841 0.837 0.519 0.064 1.042 0.117 1.563 0.119 z"/>
+                            <Path  Name="path804" Fill="#FFFFFFFF" Opacity="0.3" Data="m 783.092 286.619 c 0 0 -2.745 0 -6.176 1.097 -3.43 1.097 -4.117 2.742 -4.117 9.871 0 7.129 0.687 8.774 4.117 9.871 3.431 1.097 6.176 1.097 6.176 1.097 3.845 0 4.117 -6.724 4.117 -10.968 0 -4.244 -0.272 -10.968 -4.117 -10.968 z m 1.847 19.95 c -0.433 0.532 -1.02 0.889 -1.848 0.889 -0.583 -0.003 -1.167 -0.063 -1.748 -0.134 -1.094 -0.135 -2.61 -0.404 -4.292 -0.942 -1.698 -0.543 -2.474 -1.163 -2.909 -2.206 -0.47 -1.126 -0.656 -2.99 -0.656 -6.589 0 -3.599 0.186 -5.463 0.656 -6.589 0.435 -1.043 1.211 -1.664 2.909 -2.207 1.682 -0.537 3.198 -0.807 4.292 -0.941 0.581 -0.072 1.165 -0.131 1.748 -0.134 h 10e-4 c 0.828 0 1.414 0.357 1.847 0.889 0.441 0.543 0.772 1.33 1.015 2.311 0.496 1.997 0.569 4.548 0.569 6.671 0 2.122 -0.073 4.674 -0.569 6.671 -0.243 0.981 -0.574 1.768 -1.015 2.311 z"/>
+                            <Path  Name="path806" Fill="#FF140202" Data="m 772.799 285.522 c -1.534 3.148 -2.058 8.553 -2.058 12.065 0 3.512 0.524 8.917 2.058 12.064 0.707 -1.049 1.464 -2.622 2.745 -4.196 -0.64 -1.574 -1.281 -2.684 -1.281 -7.868 0 -5.184 0.641 -6.295 1.281 -7.868 -1.281 -1.574 -2.038 -3.148 -2.745 -4.197 z"/>
+                            <Path  Name="path808" Fill="#33FFFFFF" Data="m 772.799 285.522 c -1.534 3.148 -2.058 8.553 -2.058 12.065 0 3.512 0.524 8.917 2.058 12.064 0.707 -1.049 1.464 -2.622 2.745 -4.196 -0.64 -1.574 -1.281 -2.684 -1.281 -7.868 0 -5.184 0.641 -6.295 1.281 -7.868 -1.281 -1.574 -2.038 -3.148 -2.745 -4.197 z"/>
+                            <Canvas Name="g814">
+                                <Path  Name="path810" Fill="#FFFFFFFF" Data="m 772.799 309.651 c -0.139 -0.286 -0.271 -0.591 -0.394 -0.912 0.758 -1.234 1.474 -2.616 2.344 -3.655 0.162 0.184 0.395 0.413 0.637 0.568 -1.186 1.507 -1.91 2.994 -2.587 3.999 z"/>
+                                <Path  Name="path812" Fill="#FFFFFFFF" Data="m 772.405 286.435 c 0.123 -0.321 0.255 -0.626 0.394 -0.913 0.677 1.005 1.4 2.491 2.585 3.997 -0.389 0.292 -0.639 0.583 -0.639 0.583 -0.84 -1.124 -1.574 -2.419 -2.34 -3.667 z"/>
+                            </Canvas>
+                        </Canvas>
+                        <Path  Name="path818" StrokeThickness="0.778275" Stroke="#FF8C8C8C" Data="m 508.29854 267.5126 -1.76642 4.7585 c -0.92375 2.48797 -0.6679 5.31392 0.68426 7.55512 l 0.42468 0.70444 c 1.61917 2.68344 1.5708 6.17882 -0.12063 8.80766 v 0 c -1.51727 2.35685 -1.72477 5.43769 -0.54071 8.01282 l 1.46966 3.1981 c 1.16473 2.53522 1.04052 5.55091 -0.32725 7.9607 l -0.81143 1.42926 c -1.39605 2.45864 -1.49495 5.54439 -0.25958 8.10402 l 1.27853 2.6492 c 1.23016 2.54907 1.09255 5.62991 -0.35849 8.03564 l -0.0819 0.1359 c -1.6861 2.79499 -1.52024 6.46382 0.40906 9.06253 v 0"/>
+                        <Path  Name="path820" StrokeThickness="0.778275" Stroke="#FF8C8C8C" Data="m 113.57184 198.73554 -1.76641 4.75849 c -0.92374 2.48797 -0.66716 5.3139 0.68426 7.55513 l 0.42468 0.70444 c 1.61916 2.68341 1.5708 6.17878 -0.12059 8.80766 v 0 c -1.51652 2.35685 -1.72477 5.43769 -0.5407 8.0128 l 1.46965 3.19812 c 1.16473 2.53439 1.04127 5.5509 -0.32725 7.96068 l -0.81144 1.42926 c -1.39602 2.45866 -1.49495 5.54438 -0.25881 8.10404 l 1.27851 2.6492 c 1.22941 2.54905 1.09257 5.62989 -0.3585 8.0356 l -0.0825 0.1359 c -1.68609 2.79501 -1.52025 6.46383 0.40906 9.06256 v 0"/>
+                        <Path  Name="path822" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="M 306.9773 547.17745 V 535.3313 h 3.782 c 0.75342 0 1.37518 0.14254 1.8646 0.42838 0.48937 0.28176 0.85383 0.66128 1.0933 1.13932 0.23951 0.47398 0.35924 1.00089 0.35924 1.57911 0 0.509 -0.0825 0.92923 -0.24843 1.26067 -0.16211 0.33147 -0.37633 0.5937 -0.64407 0.78671 -0.26405 0.19302 -0.55113 0.33553 -0.86127 0.42838 v 0.11568 c 0.33097 0.0227 0.66417 0.14987 0.99813 0.38194 0.33468 0.2313 0.61509 0.56275 0.84042 0.99438 0.22537 0.43163 0.33768 0.96017 0.33768 1.5848 0 0.5937 -0.12348 1.12796 -0.36966 1.60191 -0.24617 0.47481 -0.63591 0.85025 -1.16769 1.12795 -0.53179 0.2777 -1.22347 0.41696 -2.07581 0.41696 z m 1.30975 -1.27288 h 2.59869 c 0.85605 0 1.4637 -0.1808 1.82295 -0.54321 0.3622 -0.36648 0.54368 -0.81032 0.54368 -1.33073 0 -0.40066 -0.093 -0.77121 -0.27967 -1.11083 -0.18667 -0.34285 -0.45294 -0.61648 -0.79802 -0.8209 -0.34511 -0.20849 -0.75345 -0.31272 -1.22571 -0.31272 h -2.66192 z m 0 -5.36767 h 2.42987 c 0.39417 0 0.74969 -0.0845 1.06727 -0.25411 0.31983 -0.16937 0.57345 -0.40882 0.76011 -0.71747 0.19041 -0.30866 0.2856 -0.67105 0.2856 -1.08721 0 -0.52039 -0.16584 -0.9618 -0.49683 -1.3242 -0.33097 -0.36648 -0.85532 -0.5497 -1.57377 -0.5497 h -2.47225 z m 13.46125 -5.2056 2.78907 4.92789 h 0.0841 l 2.78908 -4.92789 h 1.54255 l -3.40193 5.92307 3.40193 5.92308 h -1.54255 l -2.78908 -4.83586 h -0.0841 l -2.78907 4.83586 h -1.54257 l 3.48599 -5.92308 -3.48599 -5.92307 z m 22.32604 5.92307 c 0 1.24928 -0.20602 2.32916 -0.61806 3.23885 -0.41203 0.91049 -0.9773 1.61168 -1.69577 2.106 -0.71846 0.49354 -1.53882 0.74028 -2.46182 0.74028 -0.92227 0 -1.74262 -0.24674 -2.46109 -0.74028 -0.71848 -0.49432 -1.28372 -1.19551 -1.69577 -2.106 -0.41205 -0.90969 -0.61806 -1.98957 -0.61806 -3.23885 0 -1.24928 0.20601 -2.32916 0.61806 -3.23884 0.41205 -0.91048 0.97729 -1.61169 1.69577 -2.1052 0.71847 -0.49432 1.53882 -0.7411 2.46109 -0.7411 0.923 0 1.74336 0.24678 2.46182 0.7411 0.71847 0.49351 1.28374 1.19472 1.69577 2.1052 0.41204 0.90968 0.61806 1.98956 0.61806 3.23884 z m -1.26811 0 c 0 -1.02532 -0.15692 -1.89102 -0.47006 -2.5971 -0.31013 -0.70524 -0.73036 -1.23949 -1.26215 -1.6019 -0.52881 -0.3624 -1.12007 -0.54401 -1.77533 -0.54401 -0.65452 0 -1.24801 0.18161 -1.7798 0.54401 -0.52807 0.36241 -0.94904 0.89666 -1.26292 1.6019 -0.3094 0.70608 -0.46483 1.57178 -0.46483 2.5971 0 1.02613 0.15543 1.89103 0.46483 2.5971 0.31388 0.70528 0.73485 1.23951 1.26292 1.60191 0.53179 0.36241 1.12528 0.54401 1.7798 0.54401 0.65526 0 1.24652 -0.1816 1.77533 -0.54401 0.53179 -0.3624 0.95202 -0.89663 1.26215 -1.60191 0.31314 -0.70607 0.47006 -1.57097 0.47006 -2.5971 z m 7.0032 8.79138 v -4.14118 h 0.69765 c 0.23949 -0.23863 0.46485 -0.5766 0.67608 -1.0123 0.21494 -0.43896 0.39641 -1.02533 0.54442 -1.75827 0.15099 -0.73623 0.25139 -1.67115 0.30048 -2.80476 l 0.23279 -4.99794 h 6.42307 v 10.57327 h 1.24656 v 4.11836 h -1.24656 v -2.84548 h -7.62721 v 2.8683 z m 2.26102 -4.14118 h 5.36694 v -9.30036 h -3.99322 l -0.16957 3.72503 c -0.0417 0.86324 -0.11609 1.64588 -0.22164 2.34788 -0.10563 0.69794 -0.24098 1.31687 -0.40685 1.8568 -0.16511 0.53588 -0.35699 0.99276 -0.57566 1.37065 z" Canvas.Left="-5.742" Canvas.Top="-67.046"/>
+                        <Path  Name="path824" StrokeThickness="10.418" Stroke="#FF8C8C8C" Data="m 515.99864 400.54433 v -74.0803"/>
+                        <Path  Name="path826" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 383.57372 208.54327 c -0.0117 3.3732 2.47744 6.1177 5.55807 6.12912 3.08065 0.011 5.58709 -2.71356 5.59825 -6.08678 z m 0.24097 -74.38335 -0.24097 74.38335 11.15632 0.0424 0.24099 -74.38417 z"/>
+                        <Path  Name="path828" Fill="#FF9C9C9C" StrokeThickness="0.779178" Data="m 389.14058 202.4565 c -3.08782 0.008 -5.58595 2.74857 -5.57926 6.1226 0.006 3.37322 2.51529 6.10143 5.60313 6.09327 z m 0.0238 12.21587 122.35948 -0.30541 -0.0238 -12.21587 -122.35947 0.30541 z"/>
+                        <Line  X1="199.48825" Y1="340.39667" X2="290.26666" Y2="340.39667" Name="line830" StrokeThickness="4.66964" Stroke="#FF515151"/>
+                        <Line  X1="288.06259" Y1="337.96805" X2="288.06259" Y2="353.75681" Name="line832" StrokeThickness="4.58517" Stroke="#FF515151"/>
+                        <Rectangle  Canvas.Left="278.10925" Canvas.Top="305.72147" Width="12.157876" Height="26.200798" Name="rect834" Fill="#FF515151" StrokeThickness="0.778275"/>
+                        <Line  X1="355.66586" Y1="123.76965" X2="355.66586" Y2="85.783096" Name="line836" StrokeThickness="4.66964" Stroke="#FF515151"/>
+                        <Line  X1="354.71674" Y1="10.569818" X2="354.71674" Y2="53.362411" Name="line838" StrokeThickness="4.88493" Stroke="#FF515151"/>
+                        <Line  X1="354.02444" Y1="51.593307" X2="365.92996" Y2="69.469398" Name="line840" StrokeThickness="4.6319" Stroke="#FF515151"/>
+                        <Line  X1="9.8246555" Y1="275.98636" X2="107.0878" Y2="275.98636" Name="line842" StrokeThickness="4.66964" Stroke="#FF515151"/>
+                        <Path  Name="path844" Fill="#FF8C8C8C" StrokeThickness="0.778275" Data="m 325.23427 432.87093 c -0.29082 -0.31844 -0.7616 -0.31844 -1.05168 0 l -4.73326 5.1828 c -0.29081 0.31842 -0.29081 0.83393 0 1.15154 0.29008 0.31843 0.76087 0.31843 1.05167 0 l 4.20744 -4.607 4.20741 4.607 c 0.29009 0.31843 0.76088 0.31843 1.05167 0 0.29007 -0.31761 0.29007 -0.83312 0 -1.15154 z m -1.26958 0.57578 v 73.15198 h 1.48751 v -73.15198 z" Canvas.Left="9.947" Canvas.Top="-45.323" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Path  Name="path846" StrokeThickness="0.778275" Stroke="#FF8C8C8C" Data="m 117.21923 162.70927 v 0 c -1.2168 1.63854 -1.36925 3.93595 -0.38081 5.7504 l 0.85905 1.57747 c 1.21753 2.23715 1.3142 4.99794 0.25585 7.33037 l -1.23539 2.72251 c -0.96762 2.13291 -1.03383 4.62329 -0.18222 6.81403 l 1.77238 4.55733 c 0.85234 2.19073 0.7854 4.68113 -0.18223 6.81403 l -1.24059 2.73471 c -1.06281 2.34221 -1.03381 5.10056 0.0781 7.41505 l 0.89921 1.87148 c 1.10001 2.28927 0.9505 5.05655 -0.38825 7.18782 v 0 c -1.39305 2.21677 -1.489 5.12417 -0.25511 7.4517 v 0"/>
+                        <Path  Name="path848" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 235.70097 286.99694 1.95236 3.44977 h 0.0595 l 1.95236 -3.44977 h 1.07994 l -2.38151 4.14608 2.38151 4.14607 h -1.07994 l -1.95236 -3.3846 h -0.0595 l -1.95236 3.3846 h -1.07919 l 2.44028 -4.14607 -2.44028 -4.14608 z m 11.25526 8.42166 c -0.51244 0 -0.96241 -0.13357 -1.34992 -0.4007 -0.38453 -0.26711 -0.68499 -0.64092 -0.90218 -1.12142 -0.21419 -0.48048 -0.3213 -1.04161 -0.3213 -1.68417 0 -0.64824 0.10714 -1.21343 0.3213 -1.69638 0.21719 -0.48293 0.51765 -0.85836 0.90218 -1.12548 0.38751 -0.26712 0.83748 -0.4015 1.34992 -0.4015 0.51244 0 0.96168 0.13438 1.3462 0.4015 0.38674 0.26712 0.68723 0.64255 0.90217 1.12548 0.21643 0.48295 0.32501 1.04814 0.32501 1.69638 0 0.64256 -0.10855 1.20369 -0.32501 1.68417 -0.21494 0.4805 -0.51543 0.85431 -0.90217 1.12142 -0.38452 0.26711 -0.83376 0.4007 -1.3462 0.4007 z m 0 -0.8584 c 0.38973 0 0.71029 -0.10909 0.96168 -0.32738 0.25138 -0.21907 0.43732 -0.50655 0.5578 -0.86244 0.12128 -0.3567 0.18148 -0.74272 0.18148 -1.15807 0 -0.41615 -0.0601 -0.80298 -0.18148 -1.16212 -0.12061 -0.35916 -0.30642 -0.64908 -0.5578 -0.87059 -0.25139 -0.22151 -0.57195 -0.33228 -0.96168 -0.33228 -0.38974 0 -0.71028 0.11073 -0.96169 0.33228 -0.25138 0.22151 -0.43733 0.51143 -0.55781 0.87059 -0.12129 0.35914 -0.18148 0.74597 -0.18148 1.16212 0 0.41535 0.0602 0.80137 0.18148 1.15807 0.12062 0.35589 0.30643 0.64337 0.55781 0.86244 0.25141 0.21825 0.57195 0.32738 0.96169 0.32738 z m 9.33712 0.8584 c -0.53254 0 -0.99144 -0.13767 -1.37597 -0.41291 -0.38451 -0.27528 -0.68052 -0.65396 -0.88731 -1.13771 -0.20748 -0.48294 -0.31088 -1.03511 -0.31088 -1.65567 0 -0.63195 0.10649 -1.189 0.31833 -1.67194 0.2142 -0.4862 0.51245 -0.86569 0.89474 -1.13772 0.38453 -0.27525 0.83301 -0.4137 1.34622 -0.4137 0.39938 0 0.7586 0.0815 1.07915 0.24351 0.32057 0.16205 0.58311 0.38845 0.78767 0.68002 0.20451 0.29154 0.3317 0.63196 0.38079 1.02043 h -0.87242 c -0.0662 -0.28342 -0.21421 -0.53424 -0.44402 -0.75331 -0.22612 -0.22151 -0.53179 -0.33228 -0.9163 -0.33228 -0.34067 0 -0.63891 0.0977 -0.89549 0.29156 -0.25364 0.19219 -0.45221 0.46339 -0.595 0.8144 -0.14066 0.34774 -0.21049 0.75656 -0.21049 1.22646 0 0.4805 0.0683 0.89908 0.20677 1.25498 0.14065 0.35671 0.33766 0.6336 0.59128 0.82985 0.25658 0.19709 0.55707 0.29563 0.90293 0.29563 0.22608 0 0.43211 -0.043 0.6173 -0.12943 0.18446 -0.0864 0.34138 -0.21013 0.46931 -0.3722 0.1279 -0.16206 0.21942 -0.3567 0.27371 -0.5831 h 0.87242 c -0.0489 0.3673 -0.17107 0.69793 -0.36593 0.99194 -0.19188 0.29155 -0.447 0.52365 -0.76533 0.6963 -0.31535 0.1702 -0.68275 0.25491 -1.10148 0.25491 z m 6.18505 -5.45726 v -0.89094 h 4.61501 v 0.89094 h -1.86386 v 5.32775 h -0.87243 v -5.32775 z m 11.09759 5.45726 c -0.54741 0 -1.01896 -0.13206 -1.41612 -0.39663 -0.39418 -0.26713 -0.69913 -0.63929 -0.91334 -1.11735 -0.21197 -0.48048 -0.31758 -1.03917 -0.31758 -1.67601 0 -0.63687 0.10574 -1.1988 0.31758 -1.68417 0.21421 -0.48863 0.51321 -0.86976 0.89475 -1.14179 0.38452 -0.27525 0.83375 -0.4137 1.3462 -0.4137 0.296 0 0.58757 0.0545 0.87613 0.16206 0.28858 0.10843 0.55114 0.28341 0.78763 0.52692 0.23652 0.24024 0.42544 0.55868 0.56601 0.95528 0.14064 0.3966 0.21049 0.88524 0.21049 1.46592 v 0.40475 h -4.37775 v -0.82579 h 3.49044 c 0 -0.35101 -0.0641 -0.66457 -0.19262 -0.93982 -0.12584 -0.27527 -0.30569 -0.4927 -0.53924 -0.65152 -0.23204 -0.15962 -0.50576 -0.23943 -0.82109 -0.23943 -0.34733 0 -0.64857 0.0943 -0.90218 0.28341 -0.25139 0.1865 -0.44477 0.42919 -0.58088 0.72888 -0.13542 0.2997 -0.20305 0.6214 -0.20305 0.96425 v 0.55052 c 0 0.46909 0.0736 0.86734 0.22164 1.1939 0.15026 0.32413 0.3585 0.57089 0.62478 0.74109 0.26624 0.16776 0.57566 0.25083 0.9282 0.25083 0.22906 0 0.43658 -0.0349 0.62103 -0.10513 0.18743 -0.0723 0.34883 -0.1808 0.48492 -0.32415 0.13542 -0.14575 0.24024 -0.32654 0.31386 -0.54237 l 0.84343 0.25898 c -0.0885 0.31355 -0.23802 0.58881 -0.44773 0.82661 -0.20901 0.23454 -0.46784 0.41777 -0.7765 0.55053 -0.30791 0.12957 -0.65451 0.19383 -1.03901 0.19383 z m 9.11025 0 c -0.53254 0 -0.99067 -0.13767 -1.3752 -0.41291 -0.38452 -0.27528 -0.68054 -0.65396 -0.8873 -1.13771 -0.2075 -0.48294 -0.31088 -1.03511 -0.31088 -1.65567 0 -0.63195 0.10649 -1.189 0.31832 -1.67194 0.21422 -0.4862 0.51246 -0.86569 0.89473 -1.13772 0.38452 -0.27525 0.83301 -0.4137 1.34547 -0.4137 0.39939 0 0.75936 0.0815 1.07992 0.24351 0.32055 0.16205 0.58312 0.38845 0.78764 0.68002 0.20454 0.29154 0.33171 0.63196 0.3808 1.02043 h -0.87242 c -0.0669 -0.28342 -0.21494 -0.53424 -0.44404 -0.75331 -0.22684 -0.22151 -0.53251 -0.33228 -0.91704 -0.33228 -0.33989 0 -0.63813 0.0977 -0.89474 0.29156 -0.25361 0.19219 -0.4522 0.46339 -0.59501 0.8144 -0.14063 0.34774 -0.21121 0.75656 -0.21121 1.22646 0 0.4805 0.0692 0.89908 0.2075 1.25498 0.14063 0.35671 0.33769 0.6336 0.5913 0.82985 0.25658 0.19709 0.55705 0.29563 0.90216 0.29563 0.22685 0 0.43287 -0.043 0.61733 -0.12943 0.18519 -0.0864 0.34211 -0.21013 0.47004 -0.3722 0.12791 -0.16206 0.2194 -0.3567 0.27371 -0.5831 h 0.87242 c -0.0489 0.3673 -0.17107 0.69793 -0.36592 0.99194 -0.19263 0.29155 -0.44775 0.52365 -0.76534 0.6963 -0.31535 0.1702 -0.68277 0.25491 -1.10224 0.25491 z"/>
+                        <Path  Name="path850" StrokeThickness="4.66964" Stroke="#FF515151" Data="m 146.48751 155.01731 v -35.9766"/>
+                        <Line  X1="119.93098" Y1="80.918198" X2="170.72722" Y2="80.918198" Name="line852" StrokeThickness="10.1175" Stroke="#FF8C8C8C"/>
+                        <Path  Name="path854" Fill="#FF8C8C8C" StrokeThickness="0.773681" Data="m 113.53466 153.69149 c 0 2.88925 2.16435 5.23126 4.83442 5.23126 2.67008 0 4.8344 -2.34201 4.8344 -5.23126 z m 9.66882 0 V 75.562112 h -9.66882 v 78.129378 z"/>
+                        <Path  Name="path858" Fill="#FF9C9C9C" StrokeThickness="0.778275" Data="m 194.19557 90.629419 v -1.145038 h 7.30292 v 1.145038 h -3.06205 v 9.516181 h -1.17884 v -9.516181 z m 12.40064 9.516181 h -1.23612 l 3.57522 -10.661219 h 1.21679 l 3.57523 10.661219 h -1.23613 l -2.90955 -8.974613 h -0.0759 z m 0.45591 -4.164817 h 4.98241 v 1.145847 h -4.98241 z m 12.20801 4.164817 V 89.484381 h 1.17883 v 4.747904 h 5.19142 V 89.484381 H 226.81 V 100.1456 h -1.17962 v -4.768276 h -5.19142 v 4.768276 z m 22.19813 -1.228934 -0.13315 3.748644 h -1.21678 v -2.51971 h -0.68425 v -1.228934 z m -8.27205 1.228934 V 89.484381 h 1.12233 v 9.474635 h 5.02034 v -9.474635 h 1.12159 V 100.1456 Z M 254.53944 89.484381 V 100.1456 h -1.17887 v -9.516181 h -4.90581 v 9.516181 h -1.1796 V 89.484381 Z m 14.60957 5.330187 c 0 1.124688 -0.18518 2.096249 -0.55557 2.915535 -0.37114 0.819271 -0.87987 1.450427 -1.52618 1.895086 -0.64708 0.443851 -1.38488 0.666171 -2.21567 0.666171 -0.83003 0 -1.56856 -0.22232 -2.21563 -0.666171 -0.64633 -0.444659 -1.15506 -1.075815 -1.52619 -1.895086 -0.3704 -0.819286 -0.55558 -1.790847 -0.55558 -2.915535 0 -1.123848 0.18518 -2.095425 0.55558 -2.91471 0.37113 -0.81927 0.87986 -1.450426 1.52619 -1.895086 0.64707 -0.44385 1.3856 -0.666172 2.21563 -0.666172 0.83079 0 1.56859 0.222322 2.21567 0.666172 0.64631 0.44466 1.15504 1.075816 1.52618 1.895086 0.37039 0.819285 0.55557 1.790862 0.55557 2.91471 z m -1.14091 0 c 0 -0.922702 -0.14065 -1.702066 -0.4232 -2.337301 -0.27891 -0.63441 -0.65747 -1.115721 -1.13571 -1.441475 -0.47527 -0.326561 -1.00781 -0.489453 -1.5976 -0.489453 -0.58977 0 -1.12381 0.162892 -1.60203 0.489453 -0.47528 0.325754 -0.85458 0.807065 -1.13647 1.441475 -0.2789 0.635235 -0.41799 1.414599 -0.41799 2.337301 0 0.923526 0.1391 1.702907 0.41799 2.337317 0.28189 0.635218 0.66119 1.115721 1.13647 1.442283 0.47822 0.326578 1.01226 0.489454 1.60203 0.489454 0.58979 0 1.12233 -0.162876 1.5976 -0.489454 0.47824 -0.326562 0.8568 -0.807065 1.13571 -1.442283 0.28262 -0.63441 0.4232 -1.413791 0.4232 -2.337317 z m 6.30333 5.331032 v -1.186584 h 0.28485 c 0.40609 0 0.72144 -0.142541 0.94605 -0.427549 0.22536 -0.284226 0.38677 -0.744364 0.48494 -1.379582 0.10194 -0.63441 0.16959 -1.476491 0.20452 -2.524623 l 0.17109 -5.142881 h 5.93368 V 100.1456 h -1.17963 v -9.516181 h -3.63173 l -0.15247 4.247864 c -0.0378 1.117341 -0.1309 2.068551 -0.28039 2.85282 -0.14878 0.784254 -0.41057 1.382837 -0.78393 1.795734 -0.37411 0.412897 -0.91929 0.619763 -1.63551 0.619763 z"/>
+                        <Line  X1="201.58943" Y1="337.96805" X2="201.58943" Y2="400.61359" Name="line860" StrokeThickness="4.72087" Stroke="#FF515151"/>
+                    </Canvas>
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</Page>
